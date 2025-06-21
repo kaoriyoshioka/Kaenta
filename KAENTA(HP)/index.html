@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KAENTA サイト</title>
+  <style>
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;  /* ← ここが重要 */
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%; /* ここも100%にしておくとキレイに表示 */
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  max-width: 1300px; /* ← この幅を調整すれば中央に近づく */
+  margin: 0 auto;     /* ← 中央に配置 */
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+
+.logo-kaenta {
+  font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+  font-size: 45px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #111;
+}
+
+.nav-icons {
+  display: flex;
+  gap: 40px; /* ログインとメニューの間隔 */
+}
+
+.icon-set {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: #4b2e00;
+  font-size: 14px;
+  gap: 6px; /* アイコンと文字の間隔を調整 */
+  height: 60px; /* 高さを揃える */
+}
+
+
+/* ログインアイコン */
+.login-icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 5px;
+}
+.login-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 6px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #4b2e00;
+  border-radius: 50%;
+}
+.login-icon::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+  width: 18px;
+  height: 10px;
+  border: 2px solid #4b2e00;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+}
+
+/* メニューアイコン */
+.menu-icon {
+  width: 24px;
+  height: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.menu-icon span {
+  height: 2px;
+  background-color: #4b2e00;
+  border-radius: 1px;
+}
+
+
+    .nav-left a {
+      margin-right: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .nav-left a.sale {
+      color: red;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 14px;
+      color: #4b2e00;
+    }
+
+    .nav-icon img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      margin-bottom: 4px;
+    }
+
+.simple-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px; /* ← 間隔 */
+  padding: 20px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  flex-direction: row; /* ← これが無い、または column になっていると縦になる */
+}
+
+    /* ヘッダー全体 */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      max-width: 1300px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+    }
+
+    /* ロゴ */
+    .logo-kaenta {
+      font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+      font-size: 45px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #111;
+    }
+
+    /* login・menuエリア */
+    .nav-icons {
+      display: flex;
+      gap: 40px;
+    }
+
+    .icon-set {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      color: #4b2e00;
+      font-size: 14px;
+      height: 60px; /* 高さ揃え */
+      gap: 6px;
+
+  cursor: pointer; /* マウスカーソルを「手」マークに */
+  transition: all 0.3s ease;
+}
+
+.icon-set:hover {
+  transform: translateY(-2px); /* 少し浮かせる */
+  opacity: 0.8;               /* 透明感で反応を出す */
+}
+
+    /* login アイコン */
+    .login-icon {
+      position: relative;
+      width: 24px;
+      height: 24px;
+    }
+    .login-icon::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 6px;
+      width: 10px;
+      height: 10px;
+      border: 2px solid #4b2e00;
+      border-radius: 50%;
+    }
+    .login-icon::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 3px;
+      width: 18px;
+      height: 10px;
+      border: 2px solid #4b2e00;
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+    }
+
+    /* menu アイコン */
+    .menu-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-icon span {
+      height: 2px;
+      background-color: #4b2e00;
+      border-radius: 1px;
+    }
+.menu-icon span {
+  height: 2px;
+  background-color: #4b2e00;
+  border-radius: 1px;
+}
+.ranking {
+  background-color: #f3f3f3;
+  padding: 60px 20px;
+}
+
+.ranking h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.ranking-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.ranking-card {
+  background: #fff;
+  width: 240px;
+  padding: 16px;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.ranking-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #999;
+  color: white;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+}
+.badge.gold { background-color: gold; color: black; }
+.badge.silver { background-color: silver; color: black; }
+.badge.bronze { background-color: peru; }
+
+.item-title {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.product-name {
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.price {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.center-button {
+  text-align: center;
+  margin-top: 40px;
+}
+.center-button button {
+  background-color: #aaa;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.brand {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.brand-title {
+  font-size: 2rem;
+  letter-spacing: 4px;
+  margin-bottom: 5px;
+}
+
+.brand-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.brand-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.brand-card {
+  width: 220px;
+}
+
+.brand-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.brand-jp {
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.brand-en {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.welcome-section {
+  background-color: #f3f3f3;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 2rem;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.welcome-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.welcome-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.welcome-card:hover {
+  transform: translateY(-5px);
+}
+
+.welcome-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.welcome-card p {
+  font-size: 0.9rem;
+  padding: 15px;
+  color: #333;
+}
+.news-section {
+  text-align: center;
+  background: #fff;
+  padding: 60px 20px;
+}
+
+.news-section h2 {
+  font-size: 2rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 10px;
+}
+
+.news-section .subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.news-list {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.news-list li {
+  border-bottom: 1px solid #ccc;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.news-list .date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.news-list .text {
+  font-size: 1rem;
+  color: #333;
+}
+
+.news-list .text.gray {
+  color: #999;
+}
+
+.center-button button {
+  background-color: #999;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.kaenta-footer {
+  background: #ccc; /* シルバー背景 */
+  padding: 60px 20px;
+  text-align: center;
+  color: #333;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 60px;
+  margin-bottom: 40px;
+}
+
+.footer-column p {
+  margin: 8px 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-icons div {
+  text-align: center;
+}
+
+.footer-icons img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 6px;
+}
+
+.footer-icons p {
+  font-size: 0.8rem;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  color: #555;
+}
+#slide-menu {
+  position: absolute;
+  top: 70px; /* ヘッダーの下から出す */
+  right: 30px;
+  width: 240px;
+  background: rgba(255, 255, 255, 0.8); /* ← 透け感 */
+  backdrop-filter: blur(10px);          /* ← 背景をぼかす */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+#slide-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#slide-menu li {
+  font-size: 14px;
+  color: #222;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#slide-menu li:last-child {
+  border-bottom: none;
+}
+
+.menu-hidden {
+  display: none;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="logo-kaenta">KAENTA</div>
+    <div class="nav-icons">
+    <div class="icon-set">
+  <svg class="login-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#4b2e00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="7" r="4" />
+    <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
+  </svg>
+  <span>login</span>
+</div>
+
+      <div class="icon-set">
+        <div class="menu-icon">
+          <span></span><span></span><span></span>
+        </div>
+        <span>menu</span>
+      </div>
+    </div>
+  </header>
+</body>
+</html>
+  <section class="hero">
+    <div class="slideshow">
+      <img src="03.webp"class="slide active" alt="スライド1">
+      <img src="02.webp" class="slide" alt="スライド2">
+      <img src="01.png" class="slide" alt="スライド3">
+    </div>
+  </section>
+
+<section class="section ranking">
+  <h3>RANKING</h3>
+  <p class="subtitle">人気ランキング</p>
+  <div class="ranking-cards">
+    <div class="ranking-card">
+      <div class="badge gold">1</div>
+      <img src="product01.png" alt="">
+      <p class="item-title">泥とクリームの新感覚ヘアケア</p>
+      <p class="brand">cocone</p>
+      <p class="product-name">クレイクリームシャンプー モイスト</p>
+      <p class="price">通常購入<br>3,780円(税込)</p>
+    </div>
+    <div class="ranking-card">
+      <div class="badge silver">2</div>
+      <img src="product01.png" alt="">
+      <p class="item-title">泥とクリームの新感覚シャンプー</p>
+      <p class="brand">cocone</p>
+      <p class="product-name">クレイクリームシャンプー スムース</p>
+      <p class="price">通常購入<br>3,780円(税込)</p>
+    </div>
+    <div class="ranking-card">
+      <div class="badge bronze">3</div>
+      <img src="product01.png" alt="">
+      <p class="item-title">泥の力で髪ダメージを濃密補修</p>
+      <p class="brand">cocone</p>
+      <p class="product-name">クレイクリームシャンプー リペア</p>
+      <p class="price">通常購入<br>3,780円(税込)</p>
+    </div>
+    <div class="ranking-card">
+      <div class="badge">4</div>
+      <img src="product01.png" alt="">
+      <p class="item-title">便利な使い切り版</p>
+      <p class="brand">cocone</p>
+      <p class="product-name">クレイクリームシャンプー リペア トライアル5個</p>
+      <p class="price">通常購入<br>1,100円(税込)</p>
+    </div>
+  </div>
+  <div class="center-button">
+    <button>商品一覧はこちら</button>
+  </div>
+</section>
+<section class="section brand">
+  <h3 class="brand-title">BRAND</h3>
+  <p class="brand-subtitle">ブランド</p>
+  <div class="brand-cards">
+    <div class="brand-card">
+      <img src="product01.png" alt="">
+      <p class="brand-jp">引き算美容</p>
+      <p class="brand-en">cocone hair care</p>
+    </div>
+    <div class="brand-card">
+      <img src="product03.png" alt="">
+      <p class="brand-jp">リセットスキンケア</p>
+      <p class="brand-en">cocone skin care</p>
+    </div>
+    <div class="brand-card">
+      <img src="product01.png" alt="">
+      <p class="brand-jp">ファーストベビー化粧品</p>
+      <p class="brand-en">anone baby</p>
+    </div>
+    <div class="brand-card">
+      <img src="product03.png" alt="">
+      <p class="brand-jp">妊活・妊娠・子育ての専門店</p>
+      <p class="brand-en">konomé</p>
+    </div>
+  </div>
+</section>
+<section class="welcome-section">
+  <h2>WELCOME TO hugkumi+</h2>
+  <p class="subtitle">はじめての方へ</p>
+  <div class="welcome-cards">
+    <div class="welcome-card">
+      <img src=product02.png alt="hugkumi+について">
+      <p>hugkumi+について</p>
+    </div>
+    <div class="welcome-card">
+      <img src=product02.png alt="サステナブルな未来のために">
+      <p>サステナブルな未来のために</p>
+    </div>
+    <div class="welcome-card">
+      <img src=product02.png alt="家族が心地よく暮らせるまちづくり">
+      <p>家族が心地よく暮らせるまちづくり</p>
+    </div>
+    <div class="welcome-card">
+      <img src=product02.png alt="magazine">
+      <p>magazine</p>
+    </div>
+    <div class="welcome-card">
+      <img src=product02.png alt="Premium members">
+      <p>Premium members</p>
+    </div>
+    <div class="welcome-card">
+      <img src=product02.png alt="Q&A">
+      <p>Q&A</p>
+    </div>
+  </div>
+</section>
+<section class="news-section">
+  <h2>NEWS</h2>
+  <p class="subtitle">お知らせ</p>
+  <ul class="news-list">
+    <li>
+      <span class="date">2025年5月12日</span>
+      <span class="text"><strong>【重要】</strong> システムメンテナンスについてのお知らせ</span>
+    </li>
+    <li>
+      <span class="date">2025年5月7日</span>
+      <span class="text"><strong>【お知らせ】</strong> フリーダイヤルの一部利用不可について</span>
+    </li>
+    <li>
+      <span class="date">2025年4月22日</span>
+      <span class="text gray">※追記あり 2025年度GWの営業に関しまして</span>
+    </li>
+    <li>
+      <span class="date">2025年3月27日</span>
+      <span class="text"><strong>【お知らせ】</strong> 2025年3月27日_自然災害によるお届け遅延について</span>
+    </li>
+  </ul>
+  <div class="center-button">
+    <button>もっと見る</button>
+  </div>
+</section>
+<footer class="kaenta-footer">
+  <div class="footer-links">
+    <div class="footer-column">
+      <p>製品を探す</p>
+      <p>ブランド</p>
+      <p>hugkumi+について</p>
+    </div>
+    <div class="footer-column">
+      <p>お知らせ</p>
+      <p>定期便について</p>
+      <p>よくあるご質問</p>
+    </div>
+    <div class="footer-column">
+      <p>会社概要</p>
+      <p>特定商取引法に基づく表記</p>
+      <p>個人情報保護方針</p>
+    </div>
+  </div>
+
+  <div class="footer-logo">hugkumi+</div>
+
+  <div class="footer-icons">
+    <div>
+      <img src="line-icon.png" alt="LINE" />
+      <p>hugkumi+ 公式LINE</p>
+    </div>
+    <div>
+      <img src="instagram-icon.png" alt="Instagram" />
+      <p>cocone Instagram</p>
+    </div>
+    <div>
+      <img src="instagram-icon.png" alt="Instagram" />
+      <p>anonebaby Instagram</p>
+    </div>
+  </div>
+
+  <p class="copyright">Copyright(c) hugkumi+</p>
+</footer>
+
+
+  <footer>
+    &copy; 2025 KAENTA. All rights reserved.
+  </footer>
+<!-- メニュー表示ボタンは既に右上にあると想定 -->
+
+<div id="slide-menu" class="menu-hidden">
+  <ul>
+ <li><a href="about.html">KAENTAについて</a></li>
+<li><a href="about2.html"><span style="font-size: 0.9em;">KAENTA original</span></a></li>
+<li><a href="select.html">セレクトブランド商品</a></li>
+<li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+<li><a href="https://line.me" target="_blank">LINE</a></li>
+
+  </ul>
+</div>
+
+
+
+  <script>
+    let current = 0;
+    const slides = document.querySelectorAll(".slide");
+    const total = slides.length;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === index) {
+          slide.classList.add("active");
+        }
+      });
+    }
+
+    setInterval(() => {
+      current = (current + 1) % total;
+      showSlide(current);
+    }, 2000);
+  </script>
+<script>
+  const menuButton = document.querySelector('.menu-icon');
+  const menuBox = document.getElementById('slide-menu');
+
+  // メニュー開閉ボタンの動作
+  menuButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isVisible = menuBox.classList.contains('menu-visible');
+
+    if (isVisible) {
+      menuBox.classList.remove('menu-visible');
+      menuBox.classList.add('menu-hidden');
+    } else {
+      menuBox.classList.add('menu-visible');
+      menuBox.classList.remove('menu-hidden');
+    }
+  });
+
+  // 外をクリックしたら閉じる
+  document.addEventListener('click', (e) => {
+    const isClickInside = menuBox.contains(e.target) || menuButton.contains(e.target);
+    if (!isClickInside) {
+      menuBox.classList.remove('menu-visible');
+      menuBox.classList.add('menu-hidden');
+    }
+  });
+
+  // メニュー内リンクをクリックしたら自動で閉じる
+  document.querySelectorAll('#slide-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuBox.classList.remove('menu-visible');
+      menuBox.classList.add('menu-hidden');
+    });
+  });
+</script>
+
+
+</script>
+
+</body>
+</html>
