@@ -576,6 +576,46 @@
   display: none;
 }
 
+@media (max-width: 768px) {
+  .top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .logo-kaenta {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+
+  .nav-icons {
+    gap: 20px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .ranking-cards,
+  .brand-cards,
+  .footer-links,
+  .footer-icons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .brand-card,
+  .ranking-card,
+  .welcome-card {
+    width: 90%;
+  }
+
+  .welcome-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .news-list .text {
+    font-size: 0.95rem;
+  }
+}
 
 
   </style>
