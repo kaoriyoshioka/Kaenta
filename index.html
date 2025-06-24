@@ -575,25 +575,31 @@
 .menu-hidden {
   display: none;
 }
-
 @media (max-width: 768px) {
+  .slideshow {
+    height: 100vh;
+    aspect-ratio: auto;
+  }
+
+  .slide {
+    height: 100vh;
+    object-fit: cover;
+  }
+
   .top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
   }
 
   .logo-kaenta {
-    font-size: 30px;
-    margin-bottom: 10px;
+    font-size: 28px;
   }
 
   .nav-icons {
-    gap: 20px;
-    width: 100%;
-    justify-content: space-between;
+    gap: 15px;
   }
-
   .ranking-cards,
   .brand-cards,
   .footer-links,
@@ -883,9 +889,6 @@
       menuBox.classList.add('menu-hidden');
     });
   });
-</script>
-
-
 </script>
 
 </body>
