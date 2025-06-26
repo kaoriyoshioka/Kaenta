@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZARA風 商品ページ再現</title>
+  <style>
+    /* ベーススタイル */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #111;
+      background: #fff;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2rem;  /* カラム間の余白 */
+      padding: 2rem;
+    }
+    /* 左カラム: 画像ギャラリー */
+    .images-column {
+      flex: 1;
+    }
+    .images-column img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 1rem;  /* 画像間の余白 */
+    }
+    /* 右カラム: 商品情報 */
+    .details-column {
+      flex: 1;
+      max-width: 600px;
+    }
+    .details-column h1 {
+      font-size: 1.5em;
+      margin: 0 0 0.2em;
+    }
+    .collection-name {
+      font-size: 0.9em;
+      letter-spacing: 1px;
+      margin: 0 0 1em;
+    }
+    .price {
+      font-size: 1.1em;
+      margin: 0.5em 0;
+    }
+    .price .original-price {
+      text-decoration: line-through;
+      color: #777;
+      margin-right: 0.5em;
+    }
+    .price .sale-highlight {
+      background-color: #8BC34A;  /* 明るい緑色の背景でセール強調 */
+      color: #fff;
+      font-weight: bold;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+    .product-code {
+      margin: 0.5em 0 1.5em;
+      color: #333;
+    }
+    .description {
+      line-height: 1.6;
+      margin-bottom: 1.5em;
+    }
+    .material {
+      margin-bottom: 2em;
+      font-size: 0.95em;
+      color: #555;
+    }
+    /* ボタンスタイル */
+    .buttons {
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+    .buttons button {
+      font: inherit;
+      cursor: pointer;
+      padding: 0.6em 1.2em;
+      border: 1px solid #000;
+      border-radius: 2px;
+    }
+    .buttons .add-button {
+      background: #fff;
+      color: #000;
+    }
+    .buttons .apple-pay-button {
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+    }
+    /* モバイルレイアウト: 768px以下で1カラム表示に */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .details-column {
+        max-width: 100%;
+      }
+      .buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      .buttons button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 左側: 商品画像（同じ画像を繰り返し使用） -->
+  <div class="images-column">
+    <img src="62603.png" alt="商品画像1">
+  </div>
+
+  <!-- 右側: 商品詳細情報 -->
+  <div class="details-column">
+    <h1>TOP ホルターネック リネン ベスト 100%</h1>
+    <p class="collection-name">ZW COLLECTION</p>
+    <p class="price">
+      <span class="original-price">¥7,890</span>
+      <span class="sale-highlight">42% OFF ¥4,590</span>
+    </p>
+    <p class="product-code">ミンク | 2731/097/706</p>
+    <p class="description">
+      100％リネン糸を使用したベストタイプのトップス。ホルターネックは、ひときわ調和できるクロスデザイン。<br>
+      フロントにフェイクのウェルトポケット。背中開き。フロントはトーンオンでボタン留め。
+    </p>
+    <p class="material">素材：100% リネン</p>
+    <div class="buttons">
+      <button class="add-button">追加する</button>
+      <button class="apple-pay-button">Apple&nbsp;Pay</button>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
