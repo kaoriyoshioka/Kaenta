@@ -597,6 +597,7 @@ body, html {
     position: fixed;
     top: 0;
     width: 100%;
+    box-sizing: border-box;
     z-index: 999;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
@@ -611,8 +612,9 @@ body, html {
   }
   .nav-icons {
     display: flex;
-    align-items: center;
+    align-items:flex-end;
     gap: 20px;
+    overflow: hidden;
   }
   .icon-set {
     display: flex;
@@ -625,6 +627,7 @@ body, html {
   }
   .menu-icon {
     cursor: pointer;
+    margin-right: 0;
   }
   .menu-icon span {
     display: block;
@@ -755,7 +758,7 @@ body, html {
     border-radius: 6px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: 0.3s
   }
   .center-button button:hover {
     background-color: #777;
@@ -838,7 +841,48 @@ body, html {
   }
 }
 
+.welcome-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+   margin-bottom: 24px;
+}
 
+.text-overlay-card {
+  position: relative;
+}
+
+.text-overlay-card img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+.text-block {
+  position: absolute;
+  top: 12%;
+  left: 6%;
+  color: #000;
+  font-family: 'Helvetica Neue', sans-serif;
+  text-align: left;
+}
+
+.text-block h3 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.text-block p {
+  font-size: 0.95rem;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+.next-section {
+  margin-top: 40px;
+}
+.welcome-section {
+  padding-bottom: 40px; /* セクション全体に余裕 */
+}
 
 
   </style>
@@ -949,32 +993,41 @@ body, html {
   </div>
 </section>
 <section class="welcome-section">
-  <h2>WELCOME TO KAENTA3712</h2>
-  <p class="subtitle">はじめての方へ</p>
-  <div class="welcome-cards">
-    <div class="welcome-card">
-      <img src=product02.png alt="hugkumi+について">
-      <p>hugkumi+について</p>
+  <h2>WELCOME TO kAenta</h2>
+<div class="welcome-card">
+  <div class="text-overlay-card">
+    <img src="636 04.png" alt="KAentaについて">
+    <div class="text-block">
+      <h3>洗練された商品</h3>
+      <p>研ぎ澄まされた<br>ここにしかないデザイン</p>
     </div>
-    <div class="welcome-card">
-      <img src=product02.png alt="サステナブルな未来のために">
-      <p>サステナブルな未来のために</p>
+  </div>
+</div>
+<div class="welcome-card">
+  <div class="text-overlay-card">
+    <img src="636 04.png" alt="KAentaについて">
+    <div class="text-block">
+      <h3>ペンギン</h3>
+      <p>研ぎ澄まされた<br>ここにしかないデザイン</p>
     </div>
-    <div class="welcome-card">
-      <img src=product02.png alt="家族が心地よく暮らせるまちづくり">
-      <p>家族が心地よく暮らせるまちづくり</p>
+  </div>
+</div><div class="welcome-card">
+  <div class="text-overlay-card">
+    <img src="636 04.png" alt="KAentaについて">
+    <div class="text-block">
+      <h3>ペンギン</h3>
+      <p>ペンギンKAENTA<br>ここにしかないデザイン</p>
     </div>
-    <div class="welcome-card">
-      <img src=product02.png alt="magazine">
-      <p>magazine</p>
+  </div>
+</div><div class="welcome-card">
+  <div class="text-overlay-card">
+    <img src="636 04.png" alt="KAentaについて">
+    <div class="text-block">
+      <h3>ペンギン</h3>
+      <p>質問<br>ここにしかないデザイン</p>
     </div>
-    <div class="welcome-card">
-      <img src=product02.png alt="Premium members">
-      <p>Premium members</p>
-    </div>
-    <div class="welcome-card">
-      <img src=product02.png alt="Q&A">
-      <p>Q&A</p>
+  </div>
+</div>
     </div>
   </div>
 </section>
@@ -1006,9 +1059,9 @@ body, html {
 <footer class="kaenta-footer">
   <div class="footer-links">
     <div class="footer-column">
-      <p>製品を探す</p>
+      <p>商品を探す</p>
       <p>ブランド</p>
-      <p>hugkumi+について</p>
+      <p>KAENTAについて</p>
     </div>
     <div class="footer-column">
       <p>お知らせ</p>
@@ -1022,20 +1075,20 @@ body, html {
     </div>
   </div>
 
-  <div class="footer-logo">hugkumi+</div>
+  <div class="footer-logo">KAENTA</div>
 
   <div class="footer-icons">
     <div>
       <img src="line-icon.png" alt="LINE" />
-      <p>hugkumi+ 公式LINE</p>
+      <p>kaenta 公式LINE</p>
     </div>
     <div>
       <img src="instagram-icon.png" alt="Instagram" />
-      <p>cocone Instagram</p>
+      <p>kaenta Instagram</p>
     </div>
     <div>
       <img src="instagram-icon.png" alt="Instagram" />
-      <p>anonebaby Instagram</p>
+      <p>kaenta Instagram</p>
     </div>
   </div>
 
@@ -1118,3 +1171,4 @@ body, html {
 
 </body>
 </html>
+
