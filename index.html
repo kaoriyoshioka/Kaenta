@@ -575,103 +575,195 @@
 .menu-hidden {
   display: none;
 }
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
 @media (max-width: 768px) {
 
+  /* ----- Header ----- */
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  body {
+    padding-top: 60px;
+  }
+  .logo-kaenta {
+    text-align: left;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 0;
+  }
+  .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .icon-set {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #4b2e00;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .menu-icon {
+    cursor: pointer;
+  }
+  .menu-icon span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    margin: 3px 0;
+    background-color: #4b2e00;
+  }
+
+  /* ----- Hero Section (Slideshow) ----- */
+  .hero {
+    width: 100vw;
+    height: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .slideshow {
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+  }
+  .slide {
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ----- Ranking Section ----- */
+  .ranking-title {
+    font-size: 1.6rem;
+    margin: 5% 0 5px;
+    text-align: center;
+  }
+  .ranking-subtitle {
+    font-size: 0.9rem;
+    margin: 0 0 10px;
+    color: #777;
+    text-align: center;
+  }
   .ranking-slider {
     display: flex;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-    gap: 12px;
-    padding: 10px 0 20px 0;
+    scroll-snap-type: mandatory;
+    gap: 8px;
+    padding: 10px 5px 40px;
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-
+  .ranking-slider::-webkit-scrollbar {
+    display: none;
+  }
   .ranking-item {
-    flex: 0 0 calc(50% - 14px);
+    flex: 0 0 calc(50% - 12px);
+    max-width: 160px;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 8px;
-    box-sizing: border-box;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 0 0 10px 0;
     scroll-snap-align: start;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    row-gap: 2px;
   }
-
   .ranking-item img {
     width: 100%;
-    height: 100px; /* 画像の高さを固定して統一感を出す */
-    object-fit: contain;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: 8px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    display: block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
   }
-
+  .ranking-item p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    font-size: 0.72rem;
+    color: #333;
+  }
+  .item-title {
+    color: #555;
+  }
+  .brand {
+    font-size: 0.72rem;
+    line-height: 1.2;
+    color: #777;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  .product-name {
+    color: #333;
+  }
+  .price {
+    color: #333;
+    font-weight: bold;
+  }
   .badge {
     position: absolute;
     top: 8px;
     left: 8px;
-    font-size: 0.7rem;
-    padding: 2px 7px;
+    font-size: 0.75rem;
+    padding: 4px 8px;
     border-radius: 50%;
     color: #fff;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
+  .badge.gold { background-color: #c3a556; }
+  .badge.silver { background-color: #b6b6b6; }
+  .badge.bronze { background-color: #c7884f; }
 
-  .badge.gold {
-    background-color: #c5a154; /* 金色を少し濃く落ち着かせる */
+  /* ----- Center Button ----- */
+  .center-button {
+    text-align: center;
+    margin: 20px 0;
   }
-  .badge.silver {
-    background-color: #b5b5b5;
-  }
-  .badge.bronze {
-    background-color: #cd7f32;
-  }
-
-  .item-title {
-    font-size: 0.75rem;
-    color: #333;
-    margin-bottom: 4px;
-    line-height: 1.2;
-    text-align: left;
-  }
-
-  .brand {
-    font-size: 0.7rem;
-    color: #888;
-    margin-bottom: 4px;
-    text-align: left;
-  }
-
-  .product-name {
-    font-size: 0.75rem;
-    line-height: 1.1;
-    color: #333;
-    margin-bottom: 6px;
-    text-align: left;
-  }
-
-  .price {
-    font-size: 0.7rem;
-    color: #222;
-    font-weight: bold;
-    line-height: 1.2;
-    text-align: left;
-  }
-
   .center-button button {
     background-color: #888;
     color: #fff;
     font-size: 0.85rem;
-    padding: 8px 12px;
+    padding: 8px 16px;
     border-radius: 6px;
-    margin-top: 10px;
     border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .center-button button:hover {
+    background-color: #777;
+  }
+  .center-button button:active {
+    background-color: #555;
   }
 }
-
-
 
 
 
@@ -712,43 +804,43 @@
   <div class="ranking-slider">
     <div class="ranking-item">
       <div class="badge gold">1</div>
-      <img src="product01.png" alt="">
-      <p class="item-title">泥とクリームの新感覚ヘアケア</p>
-      <p class="brand">cocone</p>
-      <p class="product-name">クレイクリームシャンプー モイスト</p>
-      <p class="price">通常購入<br>3,780円(税込)</p>
+      <img src="0626.png" alt="">
+      <p class="item-title">ブランド</p>
+      <p class="brand">　</p>
+      <p class="product-name">商品</p>
+      <p class="price">価格<br>3,780円(税込)</p>
     </div>
     <div class="ranking-item">
       <div class="badge silver">2</div>
-      <img src="product01.png" alt="">
-      <p class="item-title">泥とクリームの新感覚シャンプー</p>
-      <p class="brand">cocone</p>
-      <p class="product-name">クレイクリームシャンプー スムース</p>
-      <p class="price">通常購入<br>3,780円(税込)</p>
+      <img src="0626.png" alt="">
+      <p class="item-title">ブランド</p>
+      <p class="brand">　</p>
+      <p class="product-name">商品</p>
+      <p class="price">価格<br>3,780円(税込)</p>
     </div>
     <div class="ranking-item">
       <div class="badge silver">2</div>
-      <img src="product01.png" alt="">
-      <p class="item-title">泥とクリームの新感覚シャンプー</p>
-      <p class="brand">cocone</p>
-      <p class="product-name">クレイクリームシャンプー スムース</p>
-      <p class="price">通常購入<br>3,780円(税込)</p>
+      <img src="0626.png" alt="">
+      <p class="item-title">ブランド</p>
+      <p class="brand">　</p>
+      <p class="product-name">商品</p>
+      <p class="price">価格<br>3,780円(税込)</p>
     </div>
     <div class="ranking-item">
       <div class="badge bronze">3</div>
-      <img src="product01.png" alt="">
-      <p class="item-title">泥の力で髪ダメージを濃密補修</p>
-      <p class="brand">cocone</p>
-      <p class="product-name">クレイクリームシャンプー リペア</p>
-      <p class="price">通常購入<br>3,780円(税込)</p>
+      <img src="0626.png" alt="">
+      <p class="item-title">ブランド</p>
+      <p class="brand">　</p>
+      <p class="product-name">商品</p>
+      <p class="price">価格<br>3,780円(税込)</p>
     </div>
     <div class="ranking-item">
       <div class="badge">4</div>
-      <img src="product01.png" alt="">
-      <p class="item-title">便利な使い切り版</p>
-      <p class="brand">cocone</p>
-      <p class="product-name">クレイクリームシャンプー リペア トライアル5個</p>
-      <p class="price">通常購入<br>1,100円(税込)</p>
+      <img src="0626.png" alt="">
+      <p class="item-title">ブランド</p>
+      <p class="brand">　</p>
+      <p class="product-name">商品</p>
+      <p class="price">価格<br>1,100円(税込)</p>
     </div>
   </div>
   <div class="center-button">
@@ -952,3 +1044,4 @@
 
 </body>
 </html>
+
