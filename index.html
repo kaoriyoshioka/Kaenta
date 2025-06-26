@@ -713,6 +713,18 @@ body, html {
     font-size: 0.72rem;
     color: #333;
   }
+  .ranking-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.ranking-link:hover .ranking-item {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
   .item-title {
     color: #555;
   }
@@ -919,6 +931,7 @@ body, html {
 <section class="section ranking">
   <h3>RANKING</h3>
   <p class="subtitle">人気ランキング</p>
+  <a href="sproduct.html" class="ranking-link">
   <div class="ranking-slider">
     <div class="ranking-item">
       <div class="badge gold">1</div>
