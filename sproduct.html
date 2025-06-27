@@ -3,156 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZARA風 商品ページ再現</title>
+  <title>ZARA風 商品ページ再現 – スライド対応</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 0;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: #111;
       background: #fff;
     }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: #111;
+    }
+    .header-icons {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #4b3b27;
+    }
+    .header-icons i {
+      font-size: 1.2rem;
+    }
+
     .container {
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
       gap: 2rem;
       padding: 2rem;
       flex-wrap: wrap;
     }
+
     .images-column {
       flex: 1;
       max-width: 600px;
     }
-    .main-image img {
-      width: 100%;
+    .slider {
+      position: relative;
+      overflow: hidden;
       border-radius: 8px;
+    }
+    .slider-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+    .slider img {
+      width: 100%;
+      flex: 0 0 100%;
+      user-select: none;
+      pointer-events: none;
     }
     .thumbnail-container {
       display: flex;
       gap: 10px;
       margin-top: 1rem;
       overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
     }
     .thumbnail-container img {
       width: 80px;
-      height: auto;
       cursor: pointer;
       opacity: 0.6;
       border: 2px solid transparent;
       border-radius: 4px;
-      transition: 0.3s;
+      transition: opacity 0.3s, border-color 0.3s;
+      scroll-snap-align: start;
     }
     .thumbnail-container img.active {
       opacity: 1;
       border-color: #000;
     }
+
     .details-column {
       flex: 1;
       max-width: 600px;
     }
-    .details-column h1 {
-      font-size: 1.5em;
-      margin: 0 0 0.2em;
-    }
-    .collection-name {
-      font-size: 0.9em;
-      letter-spacing: 1px;
-      margin: 0 0 1em;
-    }
-    .price {
-      font-size: 1.1em;
-      margin: 0.5em 0;
-    }
-    .price .original-price {
-      text-decoration: line-through;
-      color: #777;
-      margin-right: 0.5em;
-    }
-    .price .sale-highlight {
-      background-color: #8BC34A;
-      color: #fff;
-      font-weight: bold;
-      padding: 0.2em 0.4em;
-      border-radius: 3px;
-    }
-    .product-code {
-      margin: 0.5em 0 1.5em;
-      color: #333;
-    }
-    .description {
-      line-height: 1.6;
-      margin-bottom: 1.5em;
-    }
-    .material {
-      margin-bottom: 2em;
-      font-size: 0.95em;
-      color: #555;
-    }
-    .buttons {
-      display: flex;
-      gap: 1em;
-      flex-wrap: wrap;
-    }
-    .buttons button {
-      font: inherit;
-      cursor: pointer;
-      padding: 0.6em 1.2em;
-      border: 1px solid #000;
-      border-radius: 2px;
-    }
-    .buttons .add-button {
-      background: #fff;
-      color: #000;
-    }
-    .buttons .apple-pay-button {
-      background: #000;
-      color: #fff;
-      border: 1px solid #000;
-    }
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        padding: 1rem;
-      }
-      .buttons {
-        flex-direction: column;
-        width: 100%;
-      }
-      .buttons button {
-        width: 100%;
-        text-align: center;
-      }
+    .details-column h1 { font-size: 1.5em; margin: 0 0 0.3em; }
+    .collection-name { font-size: 0.9em; letter-spacing: 1px; margin: 0 0 1em; }
+    .price { font-size: 1.1em; margin: 0.5em 0; }
+    .price .original-price { text-decoration: line-through; color: #777; margin-right: .5em; }
+    .price .sale-highlight { background:#8BC34A; color:#fff; font-weight:700; padding:.2em .4em; border-radius:3px; }
+    .product-code { margin: .5em 0 1.5em; color:#333; }
+    .description { line-height:1.6; margin-bottom:1.5em; }
+    .material { margin-bottom:2em; font-size:.95em; color:#555; }
+
+    .buttons { display:flex; gap:1em; flex-wrap:wrap; }
+    .buttons button { font:inherit; cursor:pointer; padding:.6em 1.2em; border:1px solid #000; border-radius:2px; }
+    .add-button { background:#fff; color:#000; }
+    .apple-pay-button { background:#000; color:#fff; }
+
+    @media (max-width:768px) {
+      .container { flex-direction: column; padding:1rem; }
+      .buttons { flex-direction:column; width:100%; }
+      .buttons button { width:100%; text-align:center; }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <header>
+    <a href="index.html" class="logo">KAENTA</a>
+    <div class="header-icons">
+      <div><i class="fas fa-user"></i> login</div>
+      <div><i class="fas fa-bars"></i> menu</div>
+    </div>
+  </header>
+
   <div class="container">
     <div class="images-column">
-      <div class="main-image" id="mainImage">
-        <img src="62603.png" alt="商品画像1">
+      <div class="slider" id="slider">
+        <div class="slider-track" id="sliderTrack">
+          <img src="62603.png" alt="img1">
+          <img src="627 01.png" alt="img2">
+          <img src="627 01.png" alt="img3">
+        </div>
       </div>
-      <div class="thumbnail-container">
-        <img src="62603.png" class="thumb active" onclick="changeImage(this)">
-        <img src="627 01.png" class="thumb" onclick="changeImage(this)">
-        <img src="627 2.png" class="thumb" onclick="changeImage(this)">
+      <div class="thumbnail-container" id="thumbs">
+        <img src="62603.png" class="thumb active" data-index="0">
+        <img src="627 2.png" class="thumb" data-index="1">
+        <img src="img3.png" class="thumb" data-index="2">
       </div>
     </div>
 
     <div class="details-column">
       <h1>TOP ホルターネック リネン ベスト 100%</h1>
       <p class="collection-name">ZW COLLECTION</p>
-      <p class="price">
-        <span class="original-price">¥7,890</span>
-        <span class="sale-highlight">42% OFF ¥4,590</span>
-      </p>
+      <p class="price"><span class="original-price">¥7,890</span><span class="sale-highlight">42% OFF ¥4,590</span></p>
       <p class="product-code">ミンク | 2731/097/706</p>
-      <p class="description">
-        100％リネン糸を使用したベストタイプのトップス。ホルターネックは、ひときわ調和できるクロスデザイン。<br>
-        フロントにフェイクのウェルトポケット。背中開き。フロントはトーンオンでボタン留め。
-      </p>
+      <p class="description">100％リネン糸を使用したベストタイプのトップス。ホルターネックは、ひときわ調和できるクロスデザイン。<br>フロントにフェイクのウェルトポケット。背中開き。フロントはトーンオンでボタン留め。</p>
       <p class="material">素材：100% リネン</p>
       <div class="buttons">
         <button class="add-button">追加する</button>
@@ -162,13 +153,32 @@
   </div>
 
   <script>
-    function changeImage(element) {
-      const main = document.getElementById('mainImage').querySelector('img');
-      const thumbs = document.querySelectorAll('.thumb');
+    const track = document.getElementById('sliderTrack');
+    const thumbs = document.querySelectorAll('.thumb');
+    let current = 0;
+
+    function showSlide(index) {
+      current = (index + thumbs.length) % thumbs.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
       thumbs.forEach(t => t.classList.remove('active'));
-      element.classList.add('active');
-      main.src = element.src;
+      thumbs[current].classList.add('active');
     }
+
+    thumbs.forEach(t => {
+      t.addEventListener('click', () => showSlide(parseInt(t.dataset.index)));
+    });
+
+    let startX;
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+    track.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+      if (Math.abs(diff) > 50) {
+        if (diff < 0) showSlide(current + 1);
+        else showSlide(current - 1);
+      }
+    });
   </script>
 </body>
 </html>
+
