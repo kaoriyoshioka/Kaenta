@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZARA風 商品ページ再現</title>
   <style>
-    /* ベーススタイル */
     body {
       margin: 0;
       padding: 0;
@@ -19,20 +18,37 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      gap: 2rem;  /* カラム間の余白 */
+      gap: 2rem;
       padding: 2rem;
+      flex-wrap: wrap;
     }
-    /* 左カラム: 画像ギャラリー */
     .images-column {
       flex: 1;
+      max-width: 600px;
     }
-    .images-column img {
+    .main-image img {
       width: 100%;
-      height: auto;
-      display: block;
-      margin-bottom: 1rem;  /* 画像間の余白 */
+      border-radius: 8px;
     }
-    /* 右カラム: 商品情報 */
+    .thumbnail-container {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+    .thumbnail-container img {
+      width: 80px;
+      height: auto;
+      cursor: pointer;
+      opacity: 0.6;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+    .thumbnail-container img.active {
+      opacity: 1;
+      border-color: #000;
+    }
     .details-column {
       flex: 1;
       max-width: 600px;
@@ -56,7 +72,7 @@
       margin-right: 0.5em;
     }
     .price .sale-highlight {
-      background-color: #8BC34A;  /* 明るい緑色の背景でセール強調 */
+      background-color: #8BC34A;
       color: #fff;
       font-weight: bold;
       padding: 0.2em 0.4em;
@@ -75,7 +91,6 @@
       font-size: 0.95em;
       color: #555;
     }
-    /* ボタンスタイル */
     .buttons {
       display: flex;
       gap: 1em;
@@ -97,13 +112,10 @@
       color: #fff;
       border: 1px solid #000;
     }
-    /* モバイルレイアウト: 768px以下で1カラム表示に */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
-      }
-      .details-column {
-        max-width: 100%;
+        padding: 1rem;
       }
       .buttons {
         flex-direction: column;
@@ -117,35 +129,46 @@
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="images-column">
+      <div class="main-image" id="mainImage">
+        <img src="62603.png" alt="商品画像1">
+      </div>
+      <div class="thumbnail-container">
+        <img src="62603.png" class="thumb active" onclick="changeImage(this)">
+        <img src="627 01.png" class="thumb" onclick="changeImage(this)">
+        <img src="627 2.png" class="thumb" onclick="changeImage(this)">
+      </div>
+    </div>
 
-<div class="container">
-
-  <!-- 左側: 商品画像（同じ画像を繰り返し使用） -->
-  <div class="images-column">
-    <img src="62603.png" alt="商品画像1">
-  </div>
-
-  <!-- 右側: 商品詳細情報 -->
-  <div class="details-column">
-    <h1>TOP ホルターネック リネン ベスト 100%</h1>
-    <p class="collection-name">ZW COLLECTION</p>
-    <p class="price">
-      <span class="original-price">¥7,890</span>
-      <span class="sale-highlight">42% OFF ¥4,590</span>
-    </p>
-    <p class="product-code">ミンク | 2731/097/706</p>
-    <p class="description">
-      100％リネン糸を使用したベストタイプのトップス。ホルターネックは、ひときわ調和できるクロスデザイン。<br>
-      フロントにフェイクのウェルトポケット。背中開き。フロントはトーンオンでボタン留め。
-    </p>
-    <p class="material">素材：100% リネン</p>
-    <div class="buttons">
-      <button class="add-button">追加する</button>
-      <button class="apple-pay-button">Apple&nbsp;Pay</button>
+    <div class="details-column">
+      <h1>TOP ホルターネック リネン ベスト 100%</h1>
+      <p class="collection-name">ZW COLLECTION</p>
+      <p class="price">
+        <span class="original-price">¥7,890</span>
+        <span class="sale-highlight">42% OFF ¥4,590</span>
+      </p>
+      <p class="product-code">ミンク | 2731/097/706</p>
+      <p class="description">
+        100％リネン糸を使用したベストタイプのトップス。ホルターネックは、ひときわ調和できるクロスデザイン。<br>
+        フロントにフェイクのウェルトポケット。背中開き。フロントはトーンオンでボタン留め。
+      </p>
+      <p class="material">素材：100% リネン</p>
+      <div class="buttons">
+        <button class="add-button">追加する</button>
+        <button class="apple-pay-button">購入は&nbsp;こちら</button>
+      </div>
     </div>
   </div>
 
-</div>
-
+  <script>
+    function changeImage(element) {
+      const main = document.getElementById('mainImage').querySelector('img');
+      const thumbs = document.querySelectorAll('.thumb');
+      thumbs.forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      main.src = element.src;
+    }
+  </script>
 </body>
 </html>
