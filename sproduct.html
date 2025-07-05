@@ -3,182 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZARA風 商品ページ再現 – スライド対応</title>
+  <title>KAENTA – 商品詳細 (ZARA風)</title>
+  <!-- ① RESET + ベーススタイル -------------------------------------------------->
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: #111;
-      background: #fff;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
-      border-bottom: 1px solid #ddd;
-    }
-    .logo {
-      font-weight: bold;
-      font-size: 1.5rem;
-      text-decoration: none;
-      color: #111;
-    }
-    .header-icons {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      font-size: 0.9rem;
-      color: #4b3b27;
-    }
-    .header-icons i {
-      font-size: 1.2rem;
-    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#111;background:#fff;line-height:1.5}
+    a{text-decoration:none;color:inherit}
+  </style>
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      gap: 2rem;
-      padding: 2rem;
-      flex-wrap: wrap;
-    }
+  <!-- ② ヘッダー --------------------------------------------------------------->
+  <style>
+    header{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;border-bottom:1px solid #ddd;background:#fff}
+    .logo{font-size:1.5rem;font-weight:bold}
+    .header-icons{display:flex;gap:1.5rem;font-size:.95rem;color:#4b3b27}
+    .header-icons i{margin-right:.35rem;font-size:1.1rem}
+  </style>
 
-    .images-column {
-      flex: 1;
-      max-width: 600px;
-    }
-    .slider {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-    }
-    .slider-track {
-      display: flex;
-      transition: transform 0.4s ease;
-    }
-    .slider img {
-      width: 100%;
-      flex: 0 0 100%;
-      user-select: none;
-      pointer-events: none;
-    }
-    .thumbnail-container {
-      display: flex;
-      gap: 10px;
-      margin-top: 1rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .thumbnail-container img {
-      width: 80px;
-      cursor: pointer;
-      opacity: 0.6;
-      border: 2px solid transparent;
-      border-radius: 4px;
-      transition: opacity 0.3s, border-color 0.3s;
-      scroll-snap-align: start;
-    }
-    .thumbnail-container img.active {
-      opacity: 1;
-      border-color: #000;
-    }
+  <!-- ③ レイアウト ------------------------------------------------------------->
+  <style>
+    .container{max-width:1200px;margin:0 auto;padding:2rem;display:flex;gap:2rem;flex-wrap:wrap}
+    /* PC: 画像 → 詳細 の順に並べる */
+    .images-column{flex:1 1 500px;max-width:600px}
+    .details-column{flex:1 1 500px;max-width:600px}
 
-    .details-column {
-      flex: 1;
-      max-width: 600px;
-    }
-    .details-column h1 { font-size: 1.5em; margin: 0 0 0.3em; }
-    .collection-name { font-size: 0.9em; letter-spacing: 1px; margin: 0 0 1em; }
-    .price { font-size: 1.1em; margin: 0.5em 0; }
-    .price .original-price { text-decoration: line-through; color: #777; margin-right: .5em; }
-    .price .sale-highlight { background:#8BC34A; color:#fff; font-weight:700; padding:.2em .4em; border-radius:3px; }
-    .product-code { margin: .5em 0 1.5em; color:#333; }
-    .description { line-height:1.6; margin-bottom:1.5em; }
-    .material { margin-bottom:2em; font-size:.95em; color:#555; }
-
-    .buttons { display:flex; gap:1em; flex-wrap:wrap; }
-    .buttons button { font:inherit; cursor:pointer; padding:.6em 1.2em; border:1px solid #000; border-radius:2px; }
-    .add-button { background:#fff; color:#000; }
-    .apple-pay-button { background:#000; color:#fff; }
-
-    @media (max-width:768px) {
-      .container { flex-direction: column; padding:1rem; }
-      .buttons { flex-direction:column; width:100%; }
-      .buttons button { width:100%; text-align:center; }
+    /* モバイル: 画像 → 詳細 の順に縦並び */
+    @media(max-width:768px){
+      .container{flex-direction:column;padding:1rem}
+      .images-column,.details-column{max-width:100%}
     }
   </style>
+
+  <!-- ④ 画像スライダー --------------------------------------------------------->
+  <style>
+    .slider{position:relative;overflow:hidden;border-radius:8px}
+    .slider-track{display:flex;transition:transform .4s ease}
+    .slider-track img{width:100%;flex:0 0 100%;user-select:none;pointer-events:none}
+
+    .thumb-bar{display:flex;gap:10px;margin-top:1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+    .thumb-bar img{width:80px;opacity:.6;border:2px solid transparent;border-radius:4px;cursor:pointer;transition:.3s;scroll-snap-align:start}
+    .thumb-bar img.active{opacity:1;border-color:#000}
+  </style>
+
+  <!-- ⑤ 商品詳細 --------------------------------------------------------------->
+  <style>
+    .details-column h1{font-size:1.5rem;margin-bottom:.3em}
+    .collection{font-size:.9rem;letter-spacing:1px;margin-bottom:1em}
+    .price{font-size:1.1rem;margin:.5em 0}
+    .price .original{text-decoration:line-through;color:#777;margin-right:.5em}
+    .price .sale{background:#8BC34A;color:#fff;padding:.2em .4em;border-radius:3px;font-weight:700}
+    .code{margin-bottom:1.5em;color:#333}
+    .description{margin-bottom:1.5em}
+    .material{margin-bottom:2em;font-size:.95em;color:#555}
+    .btn-row{display:flex;gap:1em;flex-wrap:wrap}
+    .btn-row button{font:inherit;cursor:pointer;padding:.6em 1.2em;border:1px solid #000;border-radius:2px}
+    .btn-add{background:#fff}
+    .btn-buy{background:#000;color:#fff}
+    @media(max-width:768px){
+      .btn-row{flex-direction:column}
+      .btn-row button{width:100%}
+    }
+  </style>
+
+  <!-- ⑥ font-awesome ----------------------------------------------------------->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <header>
-    <a href="index.html" class="logo">KAENTA</a>
-    <div class="header-icons">
-      <div><i class="fas fa-user"></i> login</div>
-      <div><i class="fas fa-bars"></i> menu</div>
-    </div>
-  </header>
-
-  <div class="container">
-    <div class="images-column">
-      <div class="slider" id="slider">
-        <div class="slider-track" id="sliderTrack">
-          <img src="62603.png" alt="img1">
-          <img src="627 01.png" alt="img2">
-          <img src="627 01.png" alt="img3">
-        </div>
-      </div>
-      <div class="thumbnail-container" id="thumbs">
-        <img src="62603.png" class="thumb active" data-index="0">
-        <img src="627 2.png" class="thumb" data-index="1">
-        <img src="img3.png" class="thumb" data-index="2">
-      </div>
-    </div>
-
-    <div class="details-column">
-      <h1>TOP ホルターネック リネン ベスト 100%</h1>
-      <p class="collection-name">ZW COLLECTION</p>
-      <p class="price"><span class="original-price">¥7,890</span><span class="sale-highlight">42% OFF ¥4,590</span></p>
-      <p class="product-code">ミンク | 2731/097/706</p>
-      <p class="description">100％リネン糸を使用したベストタイプのトップス。ホルターネックは、ひときわ調和できるクロスデザイン。<br>フロントにフェイクのウェルトポケット。背中開き。フロントはトーンオンでボタン留め。</p>
-      <p class="material">素材：100% リネン</p>
-      <div class="buttons">
-        <button class="add-button">追加する</button>
-        <button class="apple-pay-button">購入は&nbsp;こちら</button>
-      </div>
-    </div>
+<header>
+  <a href="index.html" class="logo">Kaenta</a>
+  <div class="header-icons">
+    <a href="#"><i class="fas fa-user"></i>login</a>
+    <a href="#"><i class="fas fa-bars"></i>menu</a>
   </div>
+</header>
 
-  <script>
-    const track = document.getElementById('sliderTrack');
-    const thumbs = document.querySelectorAll('.thumb');
-    let current = 0;
+<main class="container">
+  <!-- 画像スライダーカラム ------------------------------------------------------>
+  <section class="images-column">
+    <div class="slider" id="slider">
+      <div class="slider-track" id="sliderTrack">
+        <img src="model01-1.png" alt="img1">
+        <img src="model01-2.png" alt="img2">
+        <img src="model01-3.png" alt="img3">
+      </div>
+    </div>
+    <div class="thumb-bar" id="thumbs">
+      <img src="model01-1.png" class="thumb active" data-index="0" alt="thumb1">
+      <img src="model01-2.png" class="thumb" data-index="1" alt="thumb2">
+      <img src="model01-3.png" class="thumb" data-index="2" alt="thumb3">
+    </div>
+  </section>
 
-    function showSlide(index) {
-      current = (index + thumbs.length) % thumbs.length;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      thumbs.forEach(t => t.classList.remove('active'));
-      thumbs[current].classList.add('active');
-    }
+  <!-- 商品詳細カラム ---------------------------------------------------------->
+  <section class="details-column">
+    <h1>TOP ホルターネック リネン ベスト 100%</h1>
+    <p class="collection">ZW COLLECTION</p>
+    <p class="price"><span class="original">¥7,890</span><span class="sale">42% OFF ¥4,590</span></p>
+    <p class="code">ミンク | 2731/097/706</p>
+    <p class="description">100％リネン糸を使用したベストタイプのトップス。ホルターネックは、ひときわ調和できるクロスデザイン。フロントにフェイクのウェルトポケット。背中開き。フロントはトーンオンでボタン留め。</p>
+    <p class="material">素材：100% リネン</p>
+    <div class="btn-row">
+      <button class="btn-add">追加する</button>
+      <button class="btn-buy">購入はこちら</button>
+    </div>
+  </section>
+</main>
 
-    thumbs.forEach(t => {
-      t.addEventListener('click', () => showSlide(parseInt(t.dataset.index)));
-    });
-
-    let startX;
-    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
-    track.addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].clientX;
-      const diff = endX - startX;
-      if (Math.abs(diff) > 50) {
-        if (diff < 0) showSlide(current + 1);
-        else showSlide(current - 1);
-      }
-    });
-  </script>
+<!-- ⑦ スライダーJS ------------------------------------------------------------>
+<script>
+  const track   = document.getElementById('sliderTrack');
+  const thumbs  = document.querySelectorAll('.thumb');
+  let current   = 0;
+  const moveTo  = index => {
+    current = (index + thumbs.length) % thumbs.length;
+    track.style.transform = `translateX(-${current*100}%)`;
+    thumbs.forEach(t=>t.classList.toggle('active',t.dataset.index==current));
+  };
+  thumbs.forEach(t=>t.addEventListener('click',()=>moveTo(+t.dataset.index)));
+  let startX;
+  track.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
+  track.addEventListener('touchend',e=>{
+    const diff=e.changedTouches[0].clientX-startX;
+    if(Math.abs(diff)>50) moveTo(current + (diff<0?1:-1));
+  });
+</script>
 </body>
 </html>
+
 
