@@ -1,178 +1,81 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KAENTA サイト</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
   <style>
-.slideshow {
-  position: relative;
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;  /* ← ここが重要 */
-}
-
-.slide {
-  position: absolute;
-  width: 100%;
-  height: 100%; /* ここも100%にしておくとキレイに表示 */
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.slide.active {
-  opacity: 1;
-}
-
-.top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 30px;
-  max-width: 1300px; /* ← この幅を調整すれば中央に近づく */
-  margin: 0 auto;     /* ← 中央に配置 */
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
-}
-
-
-.logo-kaenta {
-  font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
-  font-size: 45px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  color: #111;
-}
-
-.nav-icons {
-  display: flex;
-  gap: 40px; /* ログインとメニューの間隔 */
-}
-
-.icon-set {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  color: #4b2e00;
-  font-size: 14px;
-  gap: 6px; /* アイコンと文字の間隔を調整 */
-  height: 60px; /* 高さを揃える */
-}
-
-
-/* ログインアイコン */
-.login-icon {
-  position: relative;
-  width: 24px;
-  height: 24px;
-  margin-bottom: 5px;
-}
-.login-icon::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 6px;
-  width: 10px;
-  height: 10px;
-  border: 2px solid #4b2e00;
-  border-radius: 50%;
-}
-.login-icon::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 3px;
-  width: 18px;
-  height: 10px;
-  border: 2px solid #4b2e00;
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-}
-
-/* メニューアイコン */
-.menu-icon {
-  width: 24px;
-  height: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-.menu-icon span {
-  height: 2px;
-  background-color: #4b2e00;
-  border-radius: 1px;
-}
-
-
-    .nav-left a {
-      margin-right: 30px;
-      font-size: 18px;
-      font-weight: bold;
-      text-decoration: none;
-      color: #333;
-    }
-
-    .nav-left a.sale {
-      color: red;
-    }
-
-    .nav-right {
-      display: flex;
-      gap: 30px;
-    }
-
-    .nav-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    /* ======================= 共通設定 ======================= */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
       font-size: 14px;
-      color: #4b2e00;
+      line-height: 1.5;
     }
 
-    .nav-icon img {
-      width: 22px;
-      height: 22px;
-      object-fit: contain;
-      margin-bottom: 4px;
+    /* ======================= スライドショー ======================= */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slide.active {
+      opacity: 1;
     }
 
-.simple-header {
+ 
+    /* ======================= ヘッダー ======================= */
+header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* ← 左右に分ける */
   align-items: center;
-  gap: 50px; /* ← 間隔 */
-  padding: 20px 0;
+  padding: 1.5rem 2rem;
   background-color: #fff;
-  border-bottom: 1px solid #ccc;
-  flex-direction: row; /* ← これが無い、または column になっていると縦になる */
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
-    /* ヘッダー全体 */
-    .top-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 30px;
-      max-width: 1300px;
-      margin: 0 auto;
-      background-color: #fff;
-      border-bottom: 1px solid #ccc;
+.logo {
+  font-weight: bold;
+  font-size: 3rem;
+  text-decoration: none;
+  color: #111;
+  margin-left: 40px; /* ← 少しだけ左に余白（お好みで調整） */
+}
+
+.header-icons {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #4b3b27;
+  margin-right: 40px; /* ← 右端とのバランス */
+}
+
+
+    .header-icons i {
+      font-size: 1.2rem;
     }
 
-    /* ロゴ */
-    .logo-kaenta {
-      font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
-      font-size: 45px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #111;
-    }
-
-    /* login・menuエリア */
     .nav-icons {
       display: flex;
       gap: 40px;
@@ -185,23 +88,21 @@
       justify-content: flex-start;
       color: #4b2e00;
       font-size: 14px;
-      height: 60px; /* 高さ揃え */
       gap: 6px;
+      height: 60px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .icon-set:hover {
+      transform: translateY(-2px);
+      opacity: 0.8;
+    }
 
-  cursor: pointer; /* マウスカーソルを「手」マークに */
-  transition: all 0.3s ease;
-}
-
-.icon-set:hover {
-  transform: translateY(-2px); /* 少し浮かせる */
-  opacity: 0.8;               /* 透明感で反応を出す */
-}
-
-    /* login アイコン */
     .login-icon {
       position: relative;
       width: 24px;
       height: 24px;
+      margin-bottom: 5px;
     }
     .login-icon::before {
       content: "";
@@ -225,24 +126,105 @@
       border-radius: 0 0 10px 10px;
     }
 
-    /* menu アイコン */
-    .menu-icon {
-      width: 24px;
-      height: 24px;
+
+.menu-icon {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  cursor:pointer;
+}
+
+/* 三本線を“横長”に、3 本とも同じ */
+.menu-icon span:not(.menu-label) {
+  display:block;
+  width:40px;     /* ← 横長にする幅 */
+  height:2px;
+  background:#4b2e00;
+  border-radius:1px;
+}
+
+/* 文字ラベル */
+.menu-label{
+  font-size:1.15rem;
+  margin-top:4px;
+  color:#4b2e00;
+}
+
+/* ヘッダー中央に置きたい場合だけ追加 */
+.menu-wrapper {
+  position: absolute;
+  right: 85px; /* お好みで調整（例：40px） */
+  top: 60%;
+  transform: translateY(-50%);
+}
+
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+    }.slideshow {
+      position: relative;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slide.active {
+      opacity: 1;
+    }
+    /* ======================= ナビゲーションリンク ======================= */
+    .nav-left a {
+      margin-right: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+    }
+    .nav-left a.sale {
+      color: red;
+    }
+    .nav-right {
+      display: flex;
+      gap: 30px;
+    }
+    .nav-icon {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: #4b2e00;
     }
-    .menu-icon span {
-      height: 2px;
-      background-color: #4b2e00;
-      border-radius: 1px;
+    .nav-icon img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      margin-bottom: 4px;
     }
-.menu-icon span {
-  height: 2px;
-  background-color: #4b2e00;
-  border-radius: 1px;
-}
+
+    .simple-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      padding: 20px 0;
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+      flex-direction: row;
+    }
+
+    /* ======================= ランキングセクション ======================= */
 .ranking {
   background-color: #f3f3f3;
   padding: 60px 20px;
@@ -261,29 +243,49 @@
   margin-bottom: 30px;
 }
 
-.ranking-cards {
+/* ランキングカードを横スクロールで表示 */
+.ranking-slider {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 24px;
   justify-content: center;
+  padding: 20px;
 }
 
-.ranking-card {
-  background: #fff;
+/* スクロールバー非表示（iOSなどに対応） */
+.ranking-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* ランキングカードアイテム */
+.ranking-item {
   width: 240px;
-  padding: 16px;
+  background: #fff;
   border-radius: 10px;
-  text-align: left;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 12px;
   position: relative;
+  transition: 0.3s ease;
 }
 
-.ranking-card img {
+.ranking-item:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* 商品画像 */
+.ranking-item img {
   width: 100%;
-  height: auto;
+  height: auto; /* ← 180px固定をやめる */
+  aspect-ratio: 4 / 5; /* ← 800×1000 = 4:5 の比率をキープ */
+  object-fit: cover;
   margin-bottom: 12px;
+  border-radius: 8px;
 }
 
+
+/* 順位バッジ */
 .badge {
   position: absolute;
   top: -10px;
@@ -295,10 +297,21 @@
   border-radius: 50%;
   font-size: 0.9rem;
 }
-.badge.gold { background-color: gold; color: black; }
-.badge.silver { background-color: silver; color: black; }
-.badge.bronze { background-color: peru; }
 
+/* 各順位の色 */
+.badge.gold {
+  background-color: gold;
+  color: black;
+}
+.badge.silver {
+  background-color: silver;
+  color: black;
+}
+.badge.bronze {
+  background-color: peru;
+}
+
+/* 商品情報テキスト */
 .item-title {
   font-size: 0.9rem;
   margin-bottom: 4px;
@@ -322,10 +335,12 @@
   color: #333;
 }
 
+/* 「商品一覧」ボタン */
 .center-button {
   text-align: center;
   margin-top: 40px;
 }
+
 .center-button button {
   background-color: #aaa;
   color: white;
@@ -335,589 +350,640 @@
   border-radius: 6px;
   cursor: pointer;
 }
-.brand {
-  text-align: center;
-  padding: 60px 20px;
-}
 
-.brand-title {
-  font-size: 2rem;
-  letter-spacing: 4px;
-  margin-bottom: 5px;
-}
+     /* ======================= ブランドセクション ======================= */
+    .brand {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .brand-title {
+      font-size: 2rem;
+      letter-spacing: 4px;
+      margin-bottom: 5px;
+    }
+    .brand-subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 40px;
+    }
+    .brand-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    .brand-card {
+      width: 220px;
+    }
+    .brand-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .brand-jp {
+      font-size: 0.9rem;
+      color: #222;
+    }
+    .brand-en {
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+ /* ======================= ウェルカムセクション ======================= */
+    .welcome-section {
+      background-color: #f3f3f3;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .welcome-title {
+      font-size: 2rem;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+    .welcome-subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 40px;
+    }
+    .welcome-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .welcome-card {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+    .welcome-card:hover {
+      transform: translateY(-5px);
+    }
+    .welcome-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .welcome-card p {
+      font-size: 0.9rem;
+      padding: 15px;
+      color: #333;
+    }
+    .text-overlay-card {
+      position: relative;
+    }
+    .text-overlay-card img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+    }
+    .text-block {
+      position: absolute;
+      top: 12%;
+      left: 6%;
+      color: #000;
+      font-family: 'Helvetica Neue', sans-serif;
+      text-align: left;
+    }
+    .text-block h3 {
+      font-size: 1.4rem;
+      margin: 0;
+    }
+    .text-block p {
+      font-size: 0.95rem;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    .next-section {
+      margin-top: 40px;
+    }
+    .welcome-section {
+      padding-bottom: 40px;
+    }
+     .news-section {
+      text-align: center;
+      background: #fff;
+      padding: 60px 20px;
+    }
+    .news-section h2 {
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 10px;
+    }
+    .news-section .subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 40px;
+    }
+    .news-list {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      padding: 0;
+      list-style: none;
+      text-align: left;
+    }
+    .news-list li {
+      border-bottom: 1px solid #ccc;
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .news-list .date {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .news-list .text {
+      font-size: 1rem;
+      color: #333;
+    }
+    .news-list .text.gray {
+      color: #999;
+    }
+    .center-button button {
+      background-color: #999;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .news-section {
+      text-align: center;
+      background: #fff;
+      padding: 60px 20px;
+    }
+    .news-section h2 {
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 10px;
+    }
+    .news-section .subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 40px;
+    }
+    .news-list {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      padding: 0;
+      list-style: none;
+      text-align: left;
+    }
+    .news-list li {
+      border-bottom: 1px solid #ccc;
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .news-list .date {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .news-list .text {
+      font-size: 1rem;
+      color: #333;
+    }
+    .news-list .text.gray {
+      color: #999;
+    }
+    .center-button button {
+      background-color: #999;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-.brand-subtitle {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 40px;
-}
+    /* ======================= フッター ======================= */
+    .kaenta-footer {
+      background: #ccc;
+      padding: 60px 20px;
+      text-align: center;
+      color: #333;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+    .footer-column p {
+      margin: 8px 0;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .footer-logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .footer-icons div {
+      text-align: center;
+    }
+    .footer-icons img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 6px;
+    }
+    .footer-icons p {
+      font-size: 0.8rem;
+    }
+    .copyright {
+      font-size: 0.75rem;
+      color: #555;
+    }
+     /* ======================= スライドメニュー ======================= */
+ #slide-menu {
+      position: absolute;
+      top: 70px;
+      right: 30px;
+      width: 240px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 15px 20px;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
+    }
+    #slide-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #slide-menu li {
+      font-size: 14px;
+      color: #222;
+      padding: 6px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    #slide-menu li:last-child {
+      border-bottom: none;
+    } 
+    .menu-hidden {
+      display: none;
+    }
+    .menu-visible {
+      display: block;
+      opacity: 1;
+    }
+/* ======================= レスポンシブ対応（768px以下） ======================= */
+    @media (max-width: 768px) {
 
-.brand-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.brand-card {
-  width: 220px;
-}
-
-.brand-card img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 12px;
-}
-
-.brand-jp {
-  font-size: 0.9rem;
-  color: #222;
-}
-
-.brand-en {
-  font-size: 1rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.welcome-section {
-  background-color: #f3f3f3;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.welcome-title {
-  font-size: 2rem;
-  letter-spacing: 3px;
-  margin-bottom: 10px;
-}
-
-.welcome-subtitle {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 40px;
-}
-
-.welcome-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.welcome-card {
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.3s ease;
-}
-
-.welcome-card:hover {
-  transform: translateY(-5px);
-}
-
-.welcome-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.welcome-card p {
-  font-size: 0.9rem;
-  padding: 15px;
-  color: #333;
-}
-.news-section {
-  text-align: center;
-  background: #fff;
-  padding: 60px 20px;
-}
-
-.news-section h2 {
-  font-size: 2rem;
-  letter-spacing: 0.15em;
-  margin-bottom: 10px;
-}
-
-.news-section .subtitle {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 40px;
-}
-
-.news-list {
-  max-width: 700px;
-  margin: 0 auto 30px;
-  padding: 0;
-  list-style: none;
-  text-align: left;
-}
-
-.news-list li {
-  border-bottom: 1px solid #ccc;
-  padding: 16px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.news-list .date {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.news-list .text {
-  font-size: 1rem;
-  color: #333;
-}
-
-.news-list .text.gray {
-  color: #999;
-}
-
-.center-button button {
-  background-color: #999;
-  border: none;
-  padding: 10px 20px;
-  font-weight: bold;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.kaenta-footer {
-  background: #ccc; /* シルバー背景 */
-  padding: 60px 20px;
-  text-align: center;
-  color: #333;
-  font-family: 'Helvetica Neue', sans-serif;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 60px;
-  margin-bottom: 40px;
-}
-
-.footer-column p {
-  margin: 8px 0;
-  cursor: pointer;
-  font-size: 0.95rem;
-}
-
-.footer-logo {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-}
-
-.footer-icons {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-
-.footer-icons div {
-  text-align: center;
-}
-
-.footer-icons img {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 6px;
-}
-
-.footer-icons p {
-  font-size: 0.8rem;
-}
-
-.copyright {
-  font-size: 0.75rem;
-  color: #555;
-}
-#slide-menu {
-  position: absolute;
-  top: 70px; /* ヘッダーの下から出す */
-  right: 30px;
-  width: 240px;
-  background: rgba(255, 255, 255, 0.8); /* ← 透け感 */
-  backdrop-filter: blur(10px);          /* ← 背景をぼかす */
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 15px 20px;
-  z-index: 1000;
-  transition: opacity 0.3s ease;
-}
-
-#slide-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#slide-menu li {
-  font-size: 14px;
-  color: #222;
-  padding: 6px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-#slide-menu li:last-child {
-  border-bottom: none;
-}
-
-.menu-hidden {
-  display: none;
-}
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden;
-  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-@media (max-width: 768px) {
-
-  /* ----- Header ----- */
-  .top-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background-color: #fff;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 999;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  body {
-    padding-top: 60px;
-  }
-  .logo-kaenta {
-    text-align: left;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-left: 0;
-  }
-  .nav-icons {
-    display: flex;
-    align-items:flex-end;
-    gap: 20px;
-    overflow: hidden;
-  }
-  .icon-set {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.8rem;
-    color: #4b2e00;
-    gap: 4px;
-    cursor: pointer;
-  }
-  .menu-icon {
-    cursor: pointer;
-    margin-right: 0;
-  }
-  .menu-icon span {
-    display: block;
-    width: 20px;
-    height: 2px;
-    margin: 3px 0;
-    background-color: #4b2e00;
-  }
-
+      .top-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background-color: #fff;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 999;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      }
+      body {
+        padding-top: 60px;
+      }
+      .logo-kaenta {
+        text-align: left;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-left: 0;
+      }
+      .nav-icons {
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+        overflow: hidden;
+      }
+      .icon-set {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.8rem;
+        color: #4b2e00;
+        gap: 4px;
+        cursor: pointer;
+      }
+      .menu-icon {
+        cursor: pointer;
+        margin-right: 0;
+      }
+      .menu-icon span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 3px 0;
+        background-color: #4b2e00;
+      }
   /* ----- Hero Section (Slideshow) ----- */
-  .hero {
-    width: 100vw;
-    height: 600px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  .slideshow {
-    width: 100vw;
-    height: 100%;
-    overflow: hidden;
-  }
-  .slide {
-    width: 100vw;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+      .hero {
+        width: 100vw;
+        height: 600px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+      .slideshow {
+        width: 100vw;
+        height: 100%;
+        overflow: hidden;
+      }
+      .slide {
+        width: 100vw;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
 
-  /* ----- Ranking Section ----- */
-  .ranking-title {
-    font-size: 1.6rem;
-    margin: 5% 0 5px;
-    text-align: center;
-  }
-  .ranking-subtitle {
-    font-size: 0.9rem;
-    margin: 0 0 10px;
-    color: #777;
-    text-align: center;
-  }
-  .ranking-slider {
-    display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scroll-snap-type: mandatory;
-    gap: 8px;
-    padding: 10px 5px 40px;
-    width: 100%;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .ranking-slider::-webkit-scrollbar {
-    display: none;
-  }
-  .ranking-item {
-    flex: 0 0 calc(50% - 12px);
-    max-width: 160px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    padding: 0 0 10px 0;
-    scroll-snap-align: start;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    row-gap: 2px;
-  }
-  .ranking-item img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
-    display: block;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-  }
-  .ranking-item p {
-    margin: 0;
-    padding: 0;
-    line-height: 1.2;
-    font-size: 0.72rem;
-    color: #333;
-  }
-  .ranking-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
+      /* ----- Ranking Section ----- */
+      .ranking-title {
+        font-size: 1.6rem;
+        margin: 5% 0 5px;
+        text-align: center;
+      }
+      .ranking-subtitle {
+        font-size: 0.9rem;
+        margin: 0 0 10px;
+        color: #777;
+        text-align: center;
+      }
+      .ranking-slider {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: 8px;
+        padding: 10px 5px 40px;
+        width: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .ranking-slider::-webkit-scrollbar {
+        display: none;
+      }
+      .ranking-item {
+        flex: 0 0 calc(50% - 12px);
+        max-width: 160px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        padding: 0 0 10px 0;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        row-gap: 2px;
+      }
+      .ranking-item img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px 10px 0 0;
+        display: block;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      }
+      .ranking-item p {
+        margin: 0;
+        padding: 0;
+        line-height: 1.2;
+        font-size: 0.72rem;
+        color: #333;
+      }
+      .ranking-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .ranking-link:hover .ranking-item {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+        transition: all 0.2s ease;
+      }
+      .item-title {
+        color: #555;
+      }
+      .brand {
+        font-size: 0.72rem;
+        line-height: 1.2;
+        color: #777;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+      }
+      .product-name {
+        color: #333;
+      }
+      .price {
+        color: #333;
+        font-weight: bold;
+      }
+      .badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        border-radius: 50%;
+        color: #fff;
+        font-weight: bold;
+      }
+      .badge.gold { background-color: #c3a556; }
+      .badge.silver { background-color: #b6b6b6; }
+      .badge.bronze { background-color: #c7884f; }
 
-.ranking-link:hover .ranking-item {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
-  transition: all 0.2s ease;
-}
+      /* ----- Center Button ----- */
+      .center-button {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .center-button button {
+        background-color: #888;
+        color: #fff;
+        font-size: 0.85rem;
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s
+      }
+      .center-button button:hover {
+        background-color: #777;
+      }
+      .center-button button:active {
+        background-color: #555;
+      }
+       /* ----- BRAND セクション ----- */
+      .section.brand {
+        padding: 40px 16px 20px;
+        background-color: #f9f9f9;
+      }
+      .brand-title {
+        font-size: 1.6rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      .brand-subtitle {
+        font-size: 0.9rem;
+        text-align: center;
+        color: #777;
+        margin-bottom: 20px;
+      }
+      .brand-cards {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        padding: 10px 5px 20px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .brand-cards::-webkit-scrollbar {
+        display: none;
+      }
+      .brand-card {
+        flex: 0 0 calc(50% - 12px);
+        max-width: 160px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 12px;
+      }
+      .brand-card img {
+        width: 100%;
+        height: 180px;
+        border-radius: 10px 10px 0 0;
+        object-fit: cover;
+      }
+      .brand-jp {
+        font-size: 0.75rem;
+        color: #333;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 2px;
+      }
+      .brand-en {
+        font-size: 0.75rem;
+        color: #777;
+        margin: 0;
+      }
+    /* ----- WELCOME セクション ----- */
+      .welcome-section {
+        padding: 40px 16px;
+      }
+      .welcome-title {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+      }
+      .welcome-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+      }
+      .welcome-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .welcome-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      }
+      .text-block h3 {
+        font-size: 1.1rem;
+      }
+      .text-block p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
 
-  .item-title {
-    color: #555;
-  }
-  .brand {
-    font-size: 0.72rem;
-    line-height: 1.2;
-    color: #777;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-  }
-  .product-name {
-    color: #333;
-  }
-  .price {
-    color: #333;
-    font-weight: bold;
-  }
-  .badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    font-size: 0.75rem;
-    padding: 4px 8px;
-    border-radius: 50%;
-    color: #fff;
-    font-weight: bold;
-  }
-  .badge.gold { background-color: #c3a556; }
-  .badge.silver { background-color: #b6b6b6; }
-  .badge.bronze { background-color: #c7884f; }
+      /* ----- NEWS セクション ----- */
+      .news-section {
+        padding: 40px 16px;
+      }
+      .news-section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+      }
+      .news-section .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+      }
+      .news-list li {
+        padding: 12px 0;
+      }
+      .news-list .date {
+        font-size: 0.8rem;
+      }
+      .news-list .text {
+        font-size: 0.9rem;
+      }
 
-  /* ----- Center Button ----- */
-  .center-button {
-    text-align: center;
-    margin: 20px 0;
-  }
-  .center-button button {
-    background-color: #888;
-    color: #fff;
-    font-size: 0.85rem;
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s
-  }
-  .center-button button:hover {
-    background-color: #777;
-  }
-  .center-button button:active {
-    background-color: #555;
-  }
-
-  /* BRAND セクション全体 */
-  .section.brand {
-    padding: 40px 16px 20px;
-    background-color: #f9f9f9;
-  }
-
-  .brand-title {
-    font-size: 1.6rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 5px;
-    color: #333;
-  }
-
-  .brand-subtitle {
-    font-size: 0.9rem;
-    text-align: center;
-    color: #777;
-    margin-bottom: 20px;
-  }
-
-  /* 横スクロール設定 */
-  .brand-cards {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-snap-type: mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 8px;
-    padding: 10px 5px 20px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .brand-cards::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* 各ブランドカード */
-  .brand-card {
-    flex: 0 0 calc(50% - 12px);
-    max-width: 160px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 12px;
-  }
-
-  .brand-card img {
-    width: 100%;
-    height: 180px;
-    border-radius: 10px 10px 0 0;
-    object-fit: cover;
-  }
-
-  .brand-jp {
-    font-size: 0.75rem;
-    color: #333;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 2px;
-  }
-
-  .brand-en {
-    font-size: 0.75rem;
-    color: #777;
-    margin: 0;
-  }
-}
-
-.welcome-card {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-   margin-bottom: 24px;
-}
-
-.text-overlay-card {
-  position: relative;
-}
-
-.text-overlay-card img {
-  width: 100%;
-  display: block;
-  border-radius: 12px;
-}
-
-.text-block {
-  position: absolute;
-  top: 12%;
-  left: 6%;
-  color: #000;
-  font-family: 'Helvetica Neue', sans-serif;
-  text-align: left;
-}
-
-.text-block h3 {
-  font-size: 1.4rem;
-  margin: 0;
-}
-
-.text-block p {
-  font-size: 0.95rem;
-  margin-top: 8px;
-  line-height: 1.4;
-}
-.next-section {
-  margin-top: 40px;
-}
-.welcome-section {
-  padding-bottom: 40px; /* セクション全体に余裕 */
-}
-
-
+      /* ----- フッター ----- */
+      .kaenta-footer {
+        padding: 40px 16px;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+      .footer-column p {
+        font-size: 0.85rem;
+        text-align: center;
+      }
+      .footer-logo {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+      .footer-icons {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .footer-icons p {
+        font-size: 0.75rem;
+      }
+   } 
   </style>
 </head>
-<body>
-  <header class="top-header">
-    <div class="logo-kaenta">KAENTA</div>
-    <div class="nav-icons">
-    <div class="icon-set">
-  <svg class="login-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#4b2e00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="7" r="4" />
-    <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
-  </svg>
-  <span>login</span>
+<header>
+  <a href="index.html" class="logo">Kaenta</a>
+  <div class="menu-wrapper">
+    <div class="menu-icon" id="menuButton">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span class="menu-label">menu</span>
 </div>
 
-      <div class="icon-set">
-        <div class="menu-icon">
-          <span></span><span></span><span></span>
-        </div>
-        <span>menu</span>
-      </div>
-    </div>
+  </div>
   </header>
 </body>
 </html>
@@ -931,52 +997,60 @@ body, html {
 <section class="section ranking">
   <h3>RANKING</h3>
   <p class="subtitle">人気ランキング</p>
-  <a href="sproduct.html" class="ranking-link">
+
   <div class="ranking-slider">
-    <div class="ranking-item">
-      <div class="badge gold">1</div>
-      <img src="62603.png" alt="">
-      <p class="item-title">ブランド</p>
-      <p class="brand">　</p>
-      <p class="product-name">商品</p>
-      <p class="price">価格<br>3,780円(税込)</p>
-    </div>
-    <div class="ranking-item">
-      <div class="badge silver">2</div>
-      <img src="62603.png" alt="">
-      <p class="item-title">ブランド</p>
-      <p class="brand">　</p>
-      <p class="product-name">商品</p>
-      <p class="price">価格<br>3,780円(税込)</p>
-    </div>
-    <div class="ranking-item">
-      <div class="badge silver">2</div>
-      <img src="62603.png" alt="">
-      <p class="item-title"> ブランド</p>
-      <p class="brand">　</p>
-      <p class="product-name"> 商品</p>
-      <p class="price">価格<br> 3,780円(税込)</p>
-    </div>
-    <div class="ranking-item">
-      <div class="badge bronze">3</div>
-      <img src="62603.png" alt="">
-      <p class="item-title">ブランド</p>
-      <p class="brand">　</p>
-      <p class="product-name">商品</p>
-      <p class="price">価格<br>3,780円(税込)</p>
-    </div>
-    <div class="ranking-item">
-      <div class="badge">4</div>
-      <img src="62603.png" alt="">
-      <p class="item-title">ブランド</p>
-      <p class="brand">　</p>
-      <p class="product-name">商品</p>
-      <p class="price">価格<br>1,100円(税込)</p>
-    </div>
+
+    <a href="sproduct.html" class="ranking-link">
+      <div class="ranking-item">
+        <div class="badge gold">1</div>
+        <img src="model01-1.png" alt="">
+        <p class="item-title">ブランド</p>
+        <p class="brand"></p>
+        <p class="product-name">商品</p>
+        <p class="price">価格<br>3,780円(税込)</p>
+      </div>
+    </a>
+
+    <a href="spoduct2.html" class="ranking-link">
+      <div class="ranking-item">
+        <div class="badge silver">2</div>
+        <img src="model02-1.png" alt="">
+        <p class="item-title">ブランド</p>
+        <p class="brand"></p>
+        <p class="product-name">商品</p>
+        <p class="price">価格<br>3,780円(税込)</p>
+      </div>
+    </a>
+
+    <a href="sproduct.html" class="ranking-link">
+      <div class="ranking-item">
+        <div class="badge silver">2</div>
+        <img src="model01-1.png" alt="">
+        <p class="item-title">ブランド</p>
+        <p class="brand"></p>
+        <p class="product-name">商品</p>
+        <p class="price">価格<br>3,780円(税込)</p>
+      </div>
+    </a>
+
+    <a href="sproduct.html" class="ranking-link">
+      <div class="ranking-item">
+        <div class="badge bronze">3</div>
+        <img src="model02-1.png" alt="">
+        <p class="item-title">ブランド</p>
+        <p class="brand"></p>
+        <p class="product-name">商品</p>
+        <p class="price">価格<br>3,780円(税込)</p>
+      </div>
+    </a>
+
   </div>
+
   <div class="center-button">
     <button>商品一覧はこちら</button>
   </div>
+</section>
+
 
 </section>
 <section class="section brand">
@@ -985,7 +1059,7 @@ body, html {
   <div class="brand-cards">
     <div class="brand-card">
       <img src="626 02.png" alt="">
-      <p class="brand-jp">KAENTA</p>
+      <p class="brand-jp">kaenta</p>
       <p class="brand-en">オリジナルブランド</p>
     </div>
     <div class="brand-card">
@@ -1004,45 +1078,51 @@ body, html {
       <p class="brand-en">ブランド</p>
     </div>
   </div>
-</section>
 <section class="welcome-section">
-  <h2>WELCOME TO kAenta</h2>
-<div class="welcome-card">
-  <div class="text-overlay-card">
-    <img src="636 04.png" alt="KAentaについて">
-    <div class="text-block">
-      <h3>洗練された商品</h3>
-      <p>研ぎ澄まされた<br>ここにしかないデザイン</p>
+  <h2 class="welcome-title">WELCOME TO kaenta</h2>
+  <p class="welcome-subtitle">はじめての方へ</p>
+
+  <div class="welcome-cards">
+    
+    <div class="welcome-card text-overlay-card">
+      <img src="penguin1.jpg" alt="">
+      <div class="text-block">
+        <h3>洗練された商品</h3>
+        <p>ここにしかないデザイン</p>
+      </div>
     </div>
-  </div>
-</div>
-<div class="welcome-card">
-  <div class="text-overlay-card">
-    <img src="636 04.png" alt="KAentaについて">
-    <div class="text-block">
-      <h3>ペンギン</h3>
-      <p>研ぎ澄まされた<br>ここにしかないデザイン</p>
+
+    <div class="welcome-card text-overlay-card">
+      <img src="penguin2.jpg" alt="">
+      <div class="text-block">
+        <h3>サステナビリティ</h3>
+        <p>未来につながる</p>
+      </div>
     </div>
-  </div>
-</div><div class="welcome-card">
-  <div class="text-overlay-card">
-    <img src="636 04.png" alt="KAentaについて">
-    <div class="text-block">
-      <h3>ペンギン</h3>
-      <p>ペンギンKAENTA<br>ここにしかないデザイン</p>
+
+    <div class="welcome-card text-overlay-card">
+      <img src="636 04.png" alt="KAentaについて">
+      <div class="text-block">
+        <h3>ペンギン</h3>
+        <p>研ぎ澄まされた<br>ここにしかないデザイン</p>
+      </div>
     </div>
-  </div>
-</div><div class="welcome-card">
-  <div class="text-overlay-card">
-    <img src="636 04.png" alt="KAentaについて">
-    <div class="text-block">
-      <h3>ペンギン</h3>
-      <p>質問<br>ここにしかないデザイン</p>
+
+    <div class="welcome-card text-overlay-card">
+      <img src="636 04.png" alt="KAentaについて">
+      <div class="text-block">
+        <h3>ペンギン</h3>
+        <p>ペンギンKAENTA<br>ここにしかないデザイン</p>
+      </div>
     </div>
-  </div>
-</div>
+
+    <div class="welcome-card text-overlay-card">
+      <img src="636 04.png" alt="KAentaについて">
+      <div class="text-block">
+        <h3>ペンギン</h3>
+        <p>質問<br>ここにしかないデザイン</p>
+      </div>
     </div>
-  </div>
 </section>
 <section class="news-section">
   <h2>NEWS</h2>
