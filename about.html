@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KAENTAについて</title>
   <style>
+    /* リセット・基本設定 */
     * {
       margin: 0;
       padding: 0;
@@ -16,33 +17,93 @@
       color: #111;
     }
 
-    .header {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      height: 80px;
-      padding-left: 40px;
-      border-bottom: 1px solid #ddd;
-    }
+   /* ヘッダー全体 */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  padding: 0 40px;
+  background-color: white;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
 
-    .header a {
-      font-size: 32px;
-      font-weight: bold;
-      text-decoration: none;
-      color: #111;
+/* ロゴ */
+.logo a {
+  font-size: 35px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #111;
+}
+
+/* メニュー全体 */
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(7px); /* ← ← ← テキスト位置を微調整 */
+}
+
+/* 三本線 */
+.menu-icon {
+  width: 25px;
+  height: 2px;
+  background-color: #4a2e00;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  background-color: #4a2e00;
+  left: 0;
+}
+
+.menu-icon::before {
+  top: -8px;
+}
+
+.menu-icon::after {
+  top: 8px;
+}
+
+/* menuテキスト */
+.menu p {
+  font-size: 12px;
+  color: #4a2e00;
+  margin: 0;
+  line-height: 1.2;
+}
+
+
+    .top-banner {
+      margin-bottom: 0px; /* ← 余白を追加 */
     }
 
     .top-banner img {
       width: 100%;
-      height: 350px;
+      height: 400px;
       object-fit: cover;
       display: block;
     }
 
+    /* セクション共通設定 */
     .section {
       display: flex;
       width: 100%;
       height: 450px;
+      margin-top: 0px;
+      margin-bottom:0px;
     }
 
     .section.reverse {
@@ -81,6 +142,7 @@
       color: #333;
     }
 
+    /* ボタン */
     .center-button {
       margin-top: 20px;
     }
@@ -94,12 +156,12 @@
       cursor: pointer;
     }
 
+    /* フッター */
     .kaenta-footer {
       background: #ccc;
       padding: 60px 20px;
       text-align: center;
       color: #333;
-      font-family: 'Helvetica Neue', sans-serif;
     }
 
     .footer-links {
@@ -150,6 +212,7 @@
       color: #333;
     }
 
+    /* レスポンシブ対応 */
     @media screen and (max-width: 768px) {
       .section {
         flex-direction: column;
@@ -178,17 +241,26 @@
 </head>
 <body>
 
-  <header class="header">
-    <a href="index.html">KAENTA</a>
-  </header>
+  <!-- ヘッダー -->
+<header class="header">
+  <div class="logo">
+    <a href="#">Kaenta</a>
+  </div>
+  <div class="menu">
+    <div class="menu-icon"></div>
+    <p>menu</p>
+  </div>
+</header>
 
+  <!-- トップバナー -->
   <div class="top-banner">
-    <img src="fasion-show-jpg.webp" alt="トップバナー画像">
+    <img src="01main.png" alt="トップバナー画像">
   </div>
 
+  <!-- セクション1：KAENTAについて -->
   <div class="section">
     <div class="image">
-      <img src="Yamamoto m atm F25 008.jpg.webp" alt="KAENTAについて">
+      <img src="main03.png" alt="KAENTAについて">
     </div>
     <div class="text">
       <h2>KAENTAについて</h2>
@@ -200,6 +272,7 @@
     </div>
   </div>
 
+  <!-- セクション2：GIFT SET -->
   <div class="section reverse">
     <div class="image">
       <img src="image002 (2).png.webp" alt="GIFT SET">
@@ -214,9 +287,10 @@
     </div>
   </div>
 
+  <!-- セクション3：サステナビリティ -->
   <div class="section">
     <div class="image">
-      <img src="product03.png" alt="SUSTAINABILITY">
+      <img src="03main.png" alt="SUSTAINABILITY">
     </div>
     <div class="text">
       <h2>サステナビリティ</h2>
@@ -230,6 +304,7 @@
     </div>
   </div>
 
+  <!-- フッター -->
   <footer class="kaenta-footer">
     <div class="footer-links">
       <div class="footer-column">
