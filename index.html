@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KAENTA Product Grid</title>
+
+  <!-- フォント読み込み -->
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #000;
+    }
+
+    /* ヘッダー */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background-color: #fff;
+      z-index: 1000;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brand {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 4rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .menu {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.7rem;
+      font-weight: normal;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+    }
+
+    /* ▼ 追加：スライドメニュー */
+ .slide-menu {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9); /* ✅ 白で90%の不透明度 */
+  border-bottom: 1px solid #ddd;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  z-index: 999;
+}
+
+
+    .slide-menu.active {
+      max-height: 200px; /* 表示時の高さ */
+    }
+
+    .slide-menu a {
+      display: block;
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      text-decoration: none;
+      color: #000;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-menu a:hover {
+      background: #f5f5f5;
+    }
+
+    /* 商品部分 */
+    main {
+      margin-top: 80px; /* ヘッダー分の余白を確保 */
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin: 0;
+      padding: 0;
+    }
+
+    .product-item img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-title {
+      text-align: center;
+      margin-top: 0.8rem;
+    }
+
+    .product-price {
+      background: #fff;
+      display: inline-block;
+      width: 100%;
+      padding: 1rem 0;
+      box-sizing: border-box;
+      text-align: center;
+    }
+/* ✅ PC用（768px以上） */
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ✅ モバイル用（767px以下） */
+@media (max-width: 767px) {
+  .top-bar {
+    justify-content: space-between;
+    align-items: center; /* 高さ中央揃え */
+    padding: 0 1rem;
+  }
+
+  .brand {
+    font-size: 2rem;      /* ✅ 少し小さく */
+    line-height: 1;       /* ✅ 高さを詰める */
+  }
+  .menu {
+    position: relative;
+    top: 10px; /* ✅ MENUをほんの少し上へ調整 */
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <nav class="top-bar">
+    <div class="brand">KAENTA</div>
+    <div class="menu" id="menuBtn">MENU</div>
+  </nav>
+
+  <!-- ▼ 追加：スライドメニュー -->
+<div class="slide-menu" id="slideMenu">
+  <a href="index.html">TOP</a>
+  <a href="about.html">KAENTAについて</a>
+</div>
+
+  <main>
+    <section class="product-grid">
+      <div class="product-item">
+        <img src="model01-1.png" alt="Linen Blazer (Beige)">
+        <div class="product-title">Linen Blazer (Beige)</div>
+        <div class="product-price">USD 120.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model02-1.png" alt="Cotton Shirt (White)">
+        <div class="product-title">Cotton Shirt (White)</div>
+        <div class="product-price">USD 89.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model01-1.png" alt="Linen Blazer (Black)">
+        <div class="product-title">Linen Blazer (Black)</div>
+        <div class="product-price">USD 120.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model02-1.png" alt="Cotton Shirt (Blue)">
+        <div class="product-title">Cotton Shirt (Blue)</div>
+        <div class="product-price">USD 89.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model01-1.png" alt="Wide Trousers (Khaki)">
+        <div class="product-title">Wide Trousers (Khaki)</div>
+        <div class="product-price">USD 150.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model02-1.png" alt="Silk Dress (Navy)">
+        <div class="product-title">Silk Dress (Navy)</div>
+        <div class="product-price">USD 300.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model01-1.png" alt="Wide Trousers (Black)">
+        <div class="product-title">Wide Trousers (Black)</div>
+        <div class="product-price">USD 150.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model02-1.png" alt="Silk Dress (Red)">
+        <div class="product-title">Silk Dress (Red)</div>
+        <div class="product-price">USD 300.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model01-1.png" alt="Classic Coat (Grey)">
+        <div class="product-title">Classic Coat (Grey)</div>
+        <div class="product-price">USD 250.00</div>
+      </div>
+      <div class="product-item">
+        <img src="model02-1.png" alt="Classic Coat (Navy)">
+        <div class="product-title">Classic Coat (Navy)</div>
+        <div class="product-price">USD 250.00</div>
+      </div>
+    </section>
+  </main>
+ <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const slideMenu = document.getElementById('slideMenu');
+
+    menuBtn.addEventListener('click', () => {
+      slideMenu.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KAENTAについて</title>
+  <style>
+    /* リセット・基本設定 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      color: #111;
+    }
+
+   /* ヘッダー全体 */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  padding: 0 40px;
+  background-color: white;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ロゴ */
+.logo a {
+  font-size: 35px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #111;
+}
+
+/* メニュー全体 */
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(7px); /* ← ← ← テキスト位置を微調整 */
+}
+
+/* 三本線 */
+.menu-icon {
+  width: 25px;
+  height: 2px;
+  background-color: #4a2e00;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  background-color: #4a2e00;
+  left: 0;
+}
+
+.menu-icon::before {
+  top: -8px;
+}
+
+.menu-icon::after {
+  top: 8px;
+}
+
+/* menuテキスト */
+.menu p {
+  font-size: 12px;
+  color: #4a2e00;
+  margin: 0;
+  line-height: 1.2;
+}
+
+
+    .top-banner {
+      margin-bottom: 0px; /* ← 余白を追加 */
+    }
+
+    .top-banner img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* セクション共通設定 */
+    .section {
+      display: flex;
+      width: 100%;
+      height: 450px;
+      margin-top: 0px;
+      margin-bottom:0px;
+    }
+
+    .section.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .image, .text {
+      width: 50%;
+      height: 100%;
+    }
+
+    .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .text {
+      padding: 40px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .section h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .section p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    /* ボタン */
+    .center-button {
+      margin-top: 20px;
+    }
+
+    .center-button button {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #444;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* フッター */
+    .kaenta-footer {
+      background: #ccc;
+      padding: 60px 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column p {
+      margin: 8px 0;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .footer-logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-icons div {
+      text-align: center;
+    }
+
+    .footer-icons img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 6px;
+    }
+
+    .footer-icons p {
+      font-size: 0.8rem;
+    }
+
+    .copyright {
+      font-size: 12px;
+      color: #333;
+    }
+
+    /* レスポンシブ対応 */
+    @media screen and (max-width: 768px) {
+      .section {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .section.reverse {
+        flex-direction: column;
+      }
+
+      .section .image,
+      .section .text {
+        width: 100%;
+        height: auto;
+      }
+
+      .section .image img {
+        height: auto;
+      }
+
+      .section .text {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+<header class="header">
+  <div class="logo">
+    <a href="#">Kaenta</a>
+  </div>
+  <div class="menu">
+    <div class="menu-icon"></div>
+    <p>menu</p>
+  </div>
+</header>
+
+  <!-- トップバナー -->
+  <div class="top-banner">
+    <img src="01main.png" alt="トップバナー画像">
+  </div>
+
+  <!-- セクション1：KAENTAについて -->
+  <div class="section">
+    <div class="image">
+      <img src="main03.png" alt="KAENTAについて">
+    </div>
+    <div class="text">
+      <h2>KAENTAについて</h2>
+      <p>
+        現代のライフスタイルに寄り添うシンプルかつ洗練されたファッションブランド。<br>
+        自然体でありながらもエレガントさを忘れない、美しいシルエットと素材感を大切にしています。<br>
+        私たちは、日常の中に小さな特別を感じられるようなプロダクトを提案し続けています。
+      </p>
+    </div>
+  </div>
+
+  <!-- セクション2：GIFT SET -->
+  <div class="section reverse">
+    <div class="image">
+      <img src="image002 (2).png.webp" alt="GIFT SET">
+    </div>
+    <div class="text">
+      <h2>GIFT SET</h2>
+      <p>
+        特別な人への贈り物に、KAENTAが提案するギフトセット。<br>
+        選び抜かれたプロダクトを美しいパッケージに包み、上質な時間を演出します。<br>
+        シーズン限定アイテムや定番人気アイテムなど、目的に合わせたラインナップをご用意しています。
+      </p>
+    </div>
+  </div>
+
+  <!-- セクション3：サステナビリティ -->
+  <div class="section">
+    <div class="image">
+      <img src="03main.png" alt="SUSTAINABILITY">
+    </div>
+    <div class="text">
+      <h2>サステナビリティ</h2>
+      <p>
+        KAENTAは環境への配慮も大切にしています。<br>
+        素材選びから製造、梱包に至るまでエシカルなアプローチを追求し、持続可能な未来を見据えた取り組みを行っています。
+      </p>
+      <div class="center-button">
+        <button>もっと見る</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer class="kaenta-footer">
+    <div class="footer-links">
+      <div class="footer-column">
+        <p>製品を探す</p>
+        <p>ブランド</p>
+        <p>hugkumi+について</p>
+      </div>
+      <div class="footer-column">
+        <p>お知らせ</p>
+        <p>定期便について</p>
+        <p>よくあるご質問</p>
+      </div>
+      <div class="footer-column">
+        <p>会社概要</p>
+        <p>特定商取引法に基づく表記</p>
+        <p>個人情報保護方針</p>
+      </div>
+    </div>
+
+    <div class="footer-logo">KAENTA</div>
+
+    <div class="footer-icons">
+      <div>
+        <img src="line-icon.png" alt="LINE" />
+        <p>hugkumi+ 公式LINE</p>
+      </div>
+      <div>
+        <img src="instagram-icon.png" alt="Instagram" />
+        <p>cocone Instagram</p>
+      </div>
+      <div>
+        <img src="instagram-icon.png" alt="Instagram" />
+        <p>anonebaby Instagram</p>
+      </div>
+    </div>
+
+    <p class="copyright">Copyright(c) KAENTA</p>
+    <p class="copyright">© 2025 KAENTA. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
+
+
+
+
