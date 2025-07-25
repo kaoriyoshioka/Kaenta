@@ -50,23 +50,22 @@
       cursor: pointer;
     }
 
-    /* ▼ 追加：スライドメニュー */
- .slide-menu {
-  position: fixed;
-  top: 80px;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.9); /* ✅ 白で90%の不透明度 */
-  border-bottom: 1px solid #ddd;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  z-index: 999;
-}
-
+    /* スライドメニュー */
+    .slide-menu {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid #ddd;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      z-index: 999;
+    }
 
     .slide-menu.active {
-      max-height: 200px; /* 表示時の高さ */
+      max-height: 200px;
     }
 
     .slide-menu a {
@@ -83,24 +82,54 @@
       background: #f5f5f5;
     }
 
-    /* 商品部分 */
+    /* メイン */
     main {
-      margin-top: 80px; /* ヘッダー分の余白を確保 */
+      margin-top: 80px;
     }
 
+    /* 商品レイアウト */
     .product-grid {
       display: grid;
       grid-template-columns: 1fr;
-      margin: 0;
-      padding: 0;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
-    .product-item img {
+    .product-item {
+      max-width: 360px; /* ✅ ブランド風のサイズ */
+      margin: 0 auto;
+    }
+
+    .main-image img {
       width: 100%;
-      height: auto;
       aspect-ratio: 3 / 4;
       object-fit: cover;
-      display: block;
+      border: 1px solid #eee;
+    }
+
+    .thumb-images {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .thumb-images img {
+      width: 32px;
+      height: 48px;
+      object-fit: cover;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    .thumb-images img:hover {
+      opacity: 1;
+      border-color: #999;
     }
 
     .product-title {
@@ -116,35 +145,41 @@
       box-sizing: border-box;
       text-align: center;
     }
-/* ✅ PC用（768px以上） */
-@media (min-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
-/* ✅ モバイル用（767px以下） */
-@media (max-width: 767px) {
-  .top-bar {
-    justify-content: space-between;
-    align-items: center; /* 高さ中央揃え */
-    padding: 0 1rem;
-  }
+    /* タブレット */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-  .brand {
-    font-size: 2rem;      /* ✅ 少し小さく */
-    line-height: 1;       /* ✅ 高さを詰める */
-  }
-  .menu {
-    position: relative;
-    top: 10px; /* ✅ MENUをほんの少し上へ調整 */
-    font-size: 1.2rem;
-    line-height: 1;
-  }
-}
+    /* PC */
+    @media (min-width: 1025px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
 
+    /* モバイル */
+    @media (max-width: 767px) {
+      .top-bar {
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+      }
 
+      .brand {
+        font-size: 2rem;
+        line-height: 1;
+      }
 
+      .menu {
+        position: relative;
+        top: 10px;
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -154,73 +189,77 @@
     <div class="menu" id="menuBtn">MENU</div>
   </nav>
 
-  <!-- ▼ 追加：スライドメニュー -->
-<div class="slide-menu" id="slideMenu">
-  <a href="index.html">TOP</a>
-  <a href="about.html">KAENTAについて</a>
-</div>
+  <div class="slide-menu" id="slideMenu">
+    <a href="index.html">TOP</a>
+    <a href="about.html">KAENTAについて</a>
+  </div>
 
   <main>
     <section class="product-grid">
+      <!-- 商品1 -->
       <div class="product-item">
-        <img src="model01-1.png" alt="Linen Blazer (Beige)">
-        <div class="product-title">Linen Blazer (Beige)</div>
-        <div class="product-price">USD 120.00</div>
+        <div class="main-image">
+          <img src="model01-1.png" alt="Wide Trousers (Green)" id="mainImg1">
+        </div>
+        <div class="thumb-images">
+          <img src="model01-1.png" alt="front view"
+               onmouseover="changeImage('mainImg1','model01-1.png')">
+          <img src="model01-2.png" alt="side view"
+               onmouseover="changeImage('mainImg1','model01-2.png')">
+          <img src="model01-3.png" alt="back view"
+               onmouseover="changeImage('mainImg1','model01-3.png')">
+        </div>
+        <div class="product-title">Wide Trousers (Green)</div>
+        <div class="product-price">USD 150.00</div>
       </div>
+
+      <!-- 商品2 -->
       <div class="product-item">
-        <img src="model02-1.png" alt="Cotton Shirt (White)">
+        <div class="main-image">
+          <img src="model02-1.png" alt="Cotton Shirt (White)" id="mainImg2">
+        </div>
+        <div class="thumb-images">
+          <img src="model02-1.png" alt="front view"
+               onmouseover="changeImage('mainImg2','model02-1.png')">
+          <img src="model02-2.png" alt="side view"
+               onmouseover="changeImage('mainImg2','model02-2.png')">
+          <img src="model02-3.png" alt="back view"
+               onmouseover="changeImage('mainImg2','model02-3.png')">
+        </div>
         <div class="product-title">Cotton Shirt (White)</div>
         <div class="product-price">USD 89.00</div>
       </div>
+
+      <!-- 商品3 -->
       <div class="product-item">
-        <img src="model01-1.png" alt="Linen Blazer (Black)">
-        <div class="product-title">Linen Blazer (Black)</div>
-        <div class="product-price">USD 120.00</div>
-      </div>
-      <div class="product-item">
-        <img src="model02-1.png" alt="Cotton Shirt (Blue)">
-        <div class="product-title">Cotton Shirt (Blue)</div>
-        <div class="product-price">USD 89.00</div>
-      </div>
-      <div class="product-item">
-        <img src="model01-1.png" alt="Wide Trousers (Khaki)">
-        <div class="product-title">Wide Trousers (Khaki)</div>
-        <div class="product-price">USD 150.00</div>
-      </div>
-      <div class="product-item">
-        <img src="model02-1.png" alt="Silk Dress (Navy)">
+        <div class="main-image">
+          <img src="model03-1.png" alt="Silk Dress (Navy)" id="mainImg3">
+        </div>
+        <div class="thumb-images">
+          <img src="model03-1.png" alt="front view"
+               onmouseover="changeImage('mainImg3','model03-1.png')">
+          <img src="model03-2.png" alt="side view"
+               onmouseover="changeImage('mainImg3','model03-2.png')">
+          <img src="model03-3.png" alt="back view"
+               onmouseover="changeImage('mainImg3','model03-3.png')">
+        </div>
         <div class="product-title">Silk Dress (Navy)</div>
         <div class="product-price">USD 300.00</div>
       </div>
-      <div class="product-item">
-        <img src="model01-1.png" alt="Wide Trousers (Black)">
-        <div class="product-title">Wide Trousers (Black)</div>
-        <div class="product-price">USD 150.00</div>
-      </div>
-      <div class="product-item">
-        <img src="model02-1.png" alt="Silk Dress (Red)">
-        <div class="product-title">Silk Dress (Red)</div>
-        <div class="product-price">USD 300.00</div>
-      </div>
-      <div class="product-item">
-        <img src="model01-1.png" alt="Classic Coat (Grey)">
-        <div class="product-title">Classic Coat (Grey)</div>
-        <div class="product-price">USD 250.00</div>
-      </div>
-      <div class="product-item">
-        <img src="model02-1.png" alt="Classic Coat (Navy)">
-        <div class="product-title">Classic Coat (Navy)</div>
-        <div class="product-price">USD 250.00</div>
-      </div>
     </section>
   </main>
- <script>
+
+  <script>
     const menuBtn = document.getElementById('menuBtn');
     const slideMenu = document.getElementById('slideMenu');
-
     menuBtn.addEventListener('click', () => {
       slideMenu.classList.toggle('active');
     });
+
+    function changeImage(mainId, newSrc) {
+      document.getElementById(mainId).src = newSrc;
+    }
   </script>
+
 </body>
 </html>
