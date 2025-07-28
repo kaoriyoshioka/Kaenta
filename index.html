@@ -87,7 +87,6 @@
       margin-top: 80px;
     }
 
-    /* 商品レイアウト */
     .product-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -98,8 +97,12 @@
     }
 
     .product-item {
-      max-width: 360px; /* ✅ ブランド風のサイズ */
+      max-width: 360px;
       margin: 0 auto;
+    }
+
+    .main-image {
+      display: block;
     }
 
     .main-image img {
@@ -132,6 +135,19 @@
       border-color: #999;
     }
 
+    /* モバイル用スライド */
+    .product-slider {
+      display: none;
+    }
+
+    .product-slider img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      scroll-snap-align: center;
+      flex-shrink: 0;
+    }
+
     .product-title {
       text-align: center;
       margin-top: 0.8rem;
@@ -160,7 +176,7 @@
       }
     }
 
-    /* モバイル */
+    /* モバイル対応：ホバー無効＋スライド表示 */
     @media (max-width: 767px) {
       .top-bar {
         justify-content: space-between;
@@ -179,6 +195,19 @@
         font-size: 1.2rem;
         line-height: 1;
       }
+
+      .main-image, .thumb-images {
+        display: none;
+      }
+
+      .product-slider {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        margin-top: 6px;
+      }
     }
   </style>
 </head>
@@ -196,56 +225,49 @@
 
   <main>
     <section class="product-grid">
+
       <!-- 商品1 -->
       <div class="product-item">
+        <!-- PC：メイン画像 + サムネイル -->
         <div class="main-image">
-          <img src="model01-1.png" alt="Wide Trousers (Green)" id="mainImg1">
+          <img src="model01-1.png" alt="Wide Trousers" id="mainImg1">
         </div>
         <div class="thumb-images">
-          <img src="model01-1.png" alt="front view"
-               onmouseover="changeImage('mainImg1','model01-1.png')">
-          <img src="model01-2.png" alt="side view"
-               onmouseover="changeImage('mainImg1','model01-2.png')">
-          <img src="model01-3.png" alt="back view"
-               onmouseover="changeImage('mainImg1','model01-3.png')">
+          <img src="model01-1.png" onmouseover="changeImage('mainImg1','model01-1.png')">
+          <img src="model01-2.png" onmouseover="changeImage('mainImg1','model01-2.png')">
+          <img src="model01-3.png" onmouseover="changeImage('mainImg1','model01-3.png')">
         </div>
-        <div class="product-title">Wide Trousers (Green)</div>
+
+        <!-- モバイル：スライド画像 -->
+        <div class="product-slider">
+          <img src="model01-1.png" alt="front">
+          <img src="model01-2.png" alt="side">
+          <img src="model01-3.png" alt="back">
+        </div>
+
+        <div class="product-title">Wide Trousers</div>
         <div class="product-price">USD 150.00</div>
       </div>
 
-      <!-- 商品2 -->
+      <!-- 商品2（例） -->
       <div class="product-item">
         <div class="main-image">
-          <img src="model02-1.png" alt="Cotton Shirt (White)" id="mainImg2">
+          <img src="model02-1.png" alt="Cotton Shirt" id="mainImg2">
         </div>
         <div class="thumb-images">
-          <img src="model02-1.png" alt="front view"
-               onmouseover="changeImage('mainImg2','model02-1.png')">
-          <img src="model02-2.png" alt="side view"
-               onmouseover="changeImage('mainImg2','model02-2.png')">
-          <img src="model02-3.png" alt="back view"
-               onmouseover="changeImage('mainImg2','model02-3.png')">
+          <img src="model02-1.png" onmouseover="changeImage('mainImg2','model02-1.png')">
+          <img src="model02-2.png" onmouseover="changeImage('mainImg2','model02-2.png')">
+          <img src="model02-3.png" onmouseover="changeImage('mainImg2','model02-3.png')">
         </div>
-        <div class="product-title">Cotton Shirt (White)</div>
+        <div class="product-slider">
+          <img src="model02-1.png" alt="front">
+          <img src="model02-2.png" alt="side">
+          <img src="model02-3.png" alt="back">
+        </div>
+        <div class="product-title">Cotton Shirt</div>
         <div class="product-price">USD 89.00</div>
       </div>
 
-      <!-- 商品3 -->
-      <div class="product-item">
-        <div class="main-image">
-          <img src="model03-1.png" alt="Silk Dress (Navy)" id="mainImg3">
-        </div>
-        <div class="thumb-images">
-          <img src="model03-1.png" alt="front view"
-               onmouseover="changeImage('mainImg3','model03-1.png')">
-          <img src="model03-2.png" alt="side view"
-               onmouseover="changeImage('mainImg3','model03-2.png')">
-          <img src="model03-3.png" alt="back view"
-               onmouseover="changeImage('mainImg3','model03-3.png')">
-        </div>
-        <div class="product-title">Silk Dress (Navy)</div>
-        <div class="product-price">USD 300.00</div>
-      </div>
     </section>
   </main>
 
